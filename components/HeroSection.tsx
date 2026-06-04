@@ -11,7 +11,7 @@ const STATS = [
 // ─── Code Preview Lines ───────────────────────────────────────────────────────
 const CODE_LINES = [
   { ln: "1", parts: [{ t: "comment", v: "// Fetch fake products — no setup needed" }] },
-  { ln: "2", parts: [{ t: "fn", v: "fetch" }, { t: "plain", v: "(" }, { t: "str", v: "'https://fakeforge.dev/products?limit=5'" }, { t: "plain", v: ")" }] },
+  { ln: "2", parts: [{ t: "fn", v: "fetch" }, { t: "plain", v: "(" }, { t: "str", v: "'https://fakeforge.vercel.app/products?limit=5'" }, { t: "plain", v: ")" }] },
   { ln: "3", parts: [{ t: "plain", v: "  ." }, { t: "fn", v: "then" }, { t: "plain", v: "(" }, { t: "key", v: "res" }, { t: "plain", v: " => res." }, { t: "fn", v: "json" }, { t: "plain", v: "())" }] },
   { ln: "4", parts: [{ t: "plain", v: "  ." }, { t: "fn", v: "then" }, { t: "plain", v: "(" }, { t: "key", v: "data" }, { t: "plain", v: " => console." }, { t: "fn", v: "log" }, { t: "plain", v: "(data));" }] },
   { ln: "5", parts: [{ t: "comment", v: "// Response ↓" }], gap: true },
