@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback } from "react";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 type Method = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
-type TabId  = "params" | "headers" | "body" | "auth";
+type TabId = "params" | "headers" | "body" | "auth";
 type ResTab = "response" | "headers";
 type Status = "idle" | "loading" | "ok" | "error";
 
@@ -22,32 +22,31 @@ interface Params {
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 const RESOURCES: Resource[] = [
-  { name:"products", count:"194",  color:"#f97316", hints:["/products?limit=5","/products/1","/products/search?q=phone","/products/categories"] },
-  { name:"users",    count:"208",  color:"#60a5fa", hints:["/users?limit=5","/users/1","/users/search?q=john","/users/1/posts"] },
-  { name:"posts",    count:"251",  color:"#4ade80", hints:["/posts?limit=5","/posts/1","/posts/search?q=love","/posts/1/comments"] },
-  { name:"comments", count:"340",  color:"#e879f9", hints:["/comments?limit=5","/comments/1","/posts/1/comments"] },
-  { name:"carts",    count:"20",   color:"#facc15", hints:["/carts?limit=5","/carts/1","/users/1/carts"] },
-  { name:"todos",    count:"254",  color:"#34d399", hints:["/todos?limit=5","/todos/1","/todos/random","/users/1/todos"] },
-  { name:"quotes",   count:"1467", color:"#a78bfa", hints:["/quotes?limit=5","/quotes/1","/quotes/random"] },
-  { name:"recipes",  count:"50",   color:"#fb7185", hints:["/recipes?limit=5","/recipes/1","/recipes/search?q=pasta","/recipes/meal-type/dinner"] },
-  { name:"image",    count:"∞",   color:"#38bdf8", hints:["/image/200x150","/image/300x200?text=Hello","/image/400x300?bgColor=orange"] },
-  { name:"auth",     count:"—",   color:"#f97316", hints:["/auth/login","/auth/me","/auth/refresh"] },
-  { name:"http",     count:"—",   color:"#f87171", hints:["/http/200","/http/404","/http/500"] },
-  { name:"ip",       count:"—",   color:"#94a3b8", hints:["/ip"] },
+  { name: "products", count: "194", color: "#f97316", hints: ["/products?limit=5", "/products/1", "/products/search?q=phone", "/products/categories"] },
+  { name: "users", count: "208", color: "#60a5fa", hints: ["/users?limit=5", "/users/1", "/users/search?q=john", "/users/1/posts"] },
+  { name: "posts", count: "251", color: "#4ade80", hints: ["/posts?limit=5", "/posts/1", "/posts/search?q=love", "/posts/1/comments"] },
+  { name: "comments", count: "340", color: "#e879f9", hints: ["/comments?limit=5", "/comments/1", "/posts/1/comments"] },
+  { name: "carts", count: "20", color: "#facc15", hints: ["/carts?limit=5", "/carts/1", "/users/1/carts"] },
+  { name: "todos", count: "254", color: "#34d399", hints: ["/todos?limit=5", "/todos/1", "/todos/random", "/users/1/todos"] },
+  { name: "quotes", count: "1467", color: "#a78bfa", hints: ["/quotes?limit=5", "/quotes/1", "/quotes/random"] },
+  { name: "recipes", count: "50", color: "#fb7185", hints: ["/recipes?limit=5", "/recipes/1", "/recipes/search?q=pasta", "/recipes/meal-type/dinner"] },
+  { name: "image", count: "∞", color: "#38bdf8", hints: ["/image/200x150", "/image/300x200?text=Hello", "/image/400x300?bgColor=orange"] },
+  { name: "auth", count: "—", color: "#f97316", hints: ["/auth/login", "/auth/me", "/auth/refresh"] },
+  { name: "http", count: "—", color: "#f87171", hints: ["/http/200", "/http/404", "/http/500"] },
+  { name: "ip", count: "—", color: "#94a3b8", hints: ["/ip"] },
 ];
 
 const BASE = "https://fakeforge.vercel.app";
-const PROXY = "https://dummyjson.com"; // swap until backend is live
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 function buildUrl(resource: string, params: Params, method: Method): string {
-  if (!["GET","DELETE"].includes(method)) return `${BASE}/${resource}`;
+  if (!["GET", "DELETE"].includes(method)) return `${BASE}/${resource}`;
   const p = new URLSearchParams();
-  if (params.limit)              p.set("limit",  params.limit);
+  if (params.limit) p.set("limit", params.limit);
   if (params.skip && params.skip !== "0") p.set("skip", params.skip);
-  if (params.select)             p.set("select", params.select);
-  if (params.sortBy)             p.set("sortBy", params.sortBy);
-  if (params.order)              p.set("order",  params.order);
+  if (params.select) p.set("select", params.select);
+  if (params.sortBy) p.set("sortBy", params.sortBy);
+  if (params.order) p.set("order", params.order);
   if (params.delay && params.delay !== "0") p.set("delay", params.delay);
   const qs = p.toString();
   return `${BASE}/${resource}${qs ? "?" + qs : ""}`;
@@ -64,7 +63,7 @@ function syntaxHighlight(json: string): string {
           return `<span style="color:#4ade80">${m}</span>`;
         }
         if (/true|false/.test(m)) return `<span style="color:#60a5fa">${m}</span>`;
-        if (/null/.test(m))       return `<span style="color:rgba(255,255,255,0.25)">${m}</span>`;
+        if (/null/.test(m)) return `<span style="color:rgba(255,255,255,0.25)">${m}</span>`;
         return `<span style="color:#e879f9">${m}</span>`;
       }
     );
@@ -83,7 +82,7 @@ function Sidebar({
       <div className="p-4 border-b border-white/[0.06]">
         <p className="font-mono text-[10px] text-white/25 tracking-[1px] uppercase mb-2.5">Resources</p>
         <div className="flex items-center gap-2 bg-white/[0.04] border border-white/[0.08] rounded-[7px] px-2.5 py-[7px]">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>
           <input
             type="text" value={search} onChange={(e) => onSearch(e.target.value)}
             placeholder="Search resource..."
@@ -115,30 +114,30 @@ function Sidebar({
 // ─── Main Component ───────────────────────────────────────────────────────────
 export default function ApiExplorer() {
   const [resource, setResource] = useState<Resource>(RESOURCES[0]);
-  const [search,   setSearch]   = useState("");
-  const [method,   setMethod]   = useState<Method>("GET");
-  const [params,   setParams]   = useState<Params>({ limit:"5", skip:"0", select:"", sortBy:"", order:"", delay:"0" });
-  const [tab,      setTab]      = useState<TabId>("params");
-  const [resTab,   setResTab]   = useState<ResTab>("response");
+  const [search, setSearch] = useState("");
+  const [method, setMethod] = useState<Method>("GET");
+  const [params, setParams] = useState<Params>({ limit: "5", skip: "0", select: "", sortBy: "", order: "", delay: "0" });
+  const [tab, setTab] = useState<TabId>("params");
+  const [resTab, setResTab] = useState<ResTab>("response");
   const [authHeader, setAuthHeader] = useState("");
   const [bodyText, setBodyText] = useState('');
   const [authUser, setAuthUser] = useState("emilys");
   const [authPass, setAuthPass] = useState("emilyspass");
   const [tokenMsg, setTokenMsg] = useState("");
 
-  const [status,  setStatus]  = useState<Status>("idle");
-  const [code,    setCode]    = useState<number | null>(null);
+  const [status, setStatus] = useState<Status>("idle");
+  const [code, setCode] = useState<number | null>(null);
   const [elapsed, setElapsed] = useState<number | null>(null);
-  const [size,    setSize]    = useState<string>("");
-  const [json,    setJson]    = useState("");
-  const [respHdrs,setRespHdrs]= useState<Record<string,string>>({});
-  const [copied,  setCopied]  = useState(false);
+  const [size, setSize] = useState<string>("");
+  const [json, setJson] = useState("");
+  const [respHdrs, setRespHdrs] = useState<Record<string, string>>({});
+  const [copied, setCopied] = useState(false);
 
   const url = buildUrl(resource.name, params, method);
 
   const handleSelect = (r: Resource) => {
     setResource(r);
-    setParams({ limit:"5", skip:"0", select:"", sortBy:"", order:"", delay:"0" });
+    setParams({ limit: "5", skip: "0", select: "", sortBy: "", order: "", delay: "0" });
     setJson(""); setStatus("idle"); setCode(null); setElapsed(null);
   };
 
@@ -147,18 +146,17 @@ export default function ApiExplorer() {
 
   const sendRequest = useCallback(async () => {
     setStatus("loading"); setJson(""); setCode(null); setElapsed(null); setSize("");
-    const proxyUrl = url.replace(BASE, PROXY);
-    const opts: RequestInit = { method, headers: { "Content-Type": "application/json" } as Record<string,string> };
-    if (authHeader) (opts.headers as Record<string,string>)["Authorization"] = authHeader;
-    if (["POST","PUT","PATCH"].includes(method) && bodyText.trim()) opts.body = bodyText;
+    const opts: RequestInit = { method, headers: { "Content-Type": "application/json" } as Record<string, string> };
+    if (authHeader) (opts.headers as Record<string, string>)["Authorization"] = authHeader;
+    if (["POST", "PUT", "PATCH"].includes(method) && bodyText.trim()) opts.body = bodyText;
 
     const start = Date.now();
     try {
-      const res = await fetch(proxyUrl, opts);
-      const ms  = Date.now() - start;
+      const res = await fetch(url, opts);
+      const ms = Date.now() - start;
       const text = await res.text();
       let pretty = text;
-      try { pretty = JSON.stringify(JSON.parse(text), null, 2); } catch {}
+      try { pretty = JSON.stringify(JSON.parse(text), null, 2); } catch { }
       const preview = pretty.split("\n").slice(0, 50).join("\n");
       setJson(preview);
       setRespHdrs({ "content-type": res.headers.get("content-type") ?? "", status: `${res.status} ${res.statusText}`, "cache-control": res.headers.get("cache-control") ?? "no-cache" });
@@ -176,7 +174,7 @@ export default function ApiExplorer() {
   const doLogin = async () => {
     setTokenMsg("Logging in...");
     try {
-      const res = await fetch("https://dummyjson.com/auth/login", {
+      const res = await fetch(`${BASE}/api/auth/login`, {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username: authUser, password: authPass, expiresInMins: 60 }),
       });
@@ -191,14 +189,14 @@ export default function ApiExplorer() {
   };
 
   const statusColor = status === "ok" ? "text-green-400 bg-green-400/[0.08] border-green-400/20"
-    : status === "error"   ? "text-red-400 bg-red-400/[0.08] border-red-400/20"
-    : "text-white/20 bg-white/[0.03] border-white/[0.06]";
+    : status === "error" ? "text-red-400 bg-red-400/[0.08] border-red-400/20"
+      : "text-white/20 bg-white/[0.03] border-white/[0.06]";
 
-  const methodColor = method === "GET"    ? "text-green-400 bg-green-400/10 border-green-400/20"
-    : method === "POST"   ? "text-blue-400 bg-blue-400/10 border-blue-400/20"
-    : method === "PUT"    ? "text-yellow-400 bg-yellow-400/10 border-yellow-400/20"
-    : method === "PATCH"  ? "text-orange-400 bg-orange-400/10 border-orange-400/20"
-    : "text-red-400 bg-red-400/10 border-red-400/20";
+  const methodColor = method === "GET" ? "text-green-400 bg-green-400/10 border-green-400/20"
+    : method === "POST" ? "text-blue-400 bg-blue-400/10 border-blue-400/20"
+      : method === "PUT" ? "text-yellow-400 bg-yellow-400/10 border-yellow-400/20"
+        : method === "PATCH" ? "text-orange-400 bg-orange-400/10 border-orange-400/20"
+          : "text-red-400 bg-red-400/10 border-red-400/20";
 
   return (
     <section className="bg-[#0a0a0f] px-6 py-20">
@@ -229,8 +227,8 @@ export default function ApiExplorer() {
                 value={method} onChange={(e) => setMethod(e.target.value as Method)}
                 className={`font-mono text-[11px] font-semibold border rounded-[6px] px-3 py-[7px] outline-none cursor-pointer bg-transparent ${methodColor}`}
               >
-                {(["GET","POST","PUT","PATCH","DELETE"] as Method[]).map((m) => (
-                  <option key={m} value={m} style={{ background:"#0d0d14", color:"#fff" }}>{m}</option>
+                {(["GET", "POST", "PUT", "PATCH", "DELETE"] as Method[]).map((m) => (
+                  <option key={m} value={m} style={{ background: "#0d0d14", color: "#fff" }}>{m}</option>
                 ))}
               </select>
               <span className="flex-1 font-mono text-[11.5px] text-white/60 bg-white/[0.04] border border-white/[0.08] rounded-[7px] px-3 py-[7px] truncate">
@@ -254,7 +252,7 @@ export default function ApiExplorer() {
                 <span key={h}>
                   <span className="text-orange-500/50 cursor-pointer hover:text-orange-500 transition-colors" onClick={() => {
                     const field = document.querySelector<HTMLSpanElement>('.url-display');
-                    if(field) field.textContent = `${BASE}${h}`;
+                    if (field) field.textContent = `${BASE}${h}`;
                   }}>{h}</span>
                   {i < resource.hints.length - 1 ? " · " : ""}
                 </span>
@@ -264,12 +262,12 @@ export default function ApiExplorer() {
 
           {/* Tabs: Params / Headers / Body / Auth */}
           <div className="flex border-b border-white/[0.06]">
-            {(["params","headers","body","auth"] as TabId[]).map((t) => (
+            {(["params", "headers", "body", "auth"] as TabId[]).map((t) => (
               <button key={t} onClick={() => setTab(t)}
                 className={[
                   "font-mono text-[11px] px-4 py-2.5 border-b-2 transition-all capitalize",
                   tab === t ? "text-orange-500 border-orange-500" : "text-white/30 border-transparent hover:text-white/60",
-                  t === "body" && !["POST","PUT","PATCH"].includes(method) ? "opacity-40" : "",
+                  t === "body" && !["POST", "PUT", "PATCH"].includes(method) ? "opacity-40" : "",
                 ].join(" ")}
               >{t}</button>
             ))}
@@ -281,19 +279,19 @@ export default function ApiExplorer() {
               <table className="w-full">
                 <thead>
                   <tr>
-                    {["Key","Value","Description"].map((h) => (
+                    {["Key", "Value", "Description"].map((h) => (
                       <th key={h} className="font-mono text-[10px] text-white/20 uppercase tracking-[0.8px] text-left pb-2 font-normal"
-                        style={{ width: h==="Key"?"22%":h==="Value"?"30%":"auto" }}>{h}</th>
+                        style={{ width: h === "Key" ? "22%" : h === "Value" ? "30%" : "auto" }}>{h}</th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
                   {[
-                    { key:"limit",  val:params.limit,  type:"number", placeholder:"",          desc:"Number of items to return" },
-                    { key:"skip",   val:params.skip,   type:"number", placeholder:"",          desc:"Items to skip (pagination)" },
-                    { key:"select", val:params.select, type:"text",   placeholder:"id,title",  desc:"Comma-separated fields" },
-                    { key:"sortBy", val:params.sortBy, type:"text",   placeholder:"price",     desc:"Field to sort by" },
-                    { key:"delay",  val:params.delay,  type:"number", placeholder:"ms",        desc:"Simulate latency (ms)" },
+                    { key: "limit", val: params.limit, type: "number", placeholder: "", desc: "Number of items to return" },
+                    { key: "skip", val: params.skip, type: "number", placeholder: "", desc: "Items to skip (pagination)" },
+                    { key: "select", val: params.select, type: "text", placeholder: "id,title", desc: "Comma-separated fields" },
+                    { key: "sortBy", val: params.sortBy, type: "text", placeholder: "price", desc: "Field to sort by" },
+                    { key: "delay", val: params.delay, type: "number", placeholder: "ms", desc: "Simulate latency (ms)" },
                   ].map(({ key, val, type, placeholder, desc }) => (
                     <tr key={key}>
                       <td className="font-mono text-[11px] text-white/40 py-1 pr-3 whitespace-nowrap">{key}</td>
@@ -301,9 +299,9 @@ export default function ApiExplorer() {
                         {key === "sortBy" ? (
                           <select value={params.order} onChange={setParam("order")}
                             className="w-full bg-white/[0.04] border border-white/[0.08] focus:border-orange-500/30 rounded-[5px] px-2.5 py-[5px] font-mono text-[11px] text-white/70 outline-none">
-                            <option value="" style={{background:"#0d0d14"}}>--</option>
-                            <option value="asc" style={{background:"#0d0d14"}}>asc</option>
-                            <option value="desc" style={{background:"#0d0d14"}}>desc</option>
+                            <option value="" style={{ background: "#0d0d14" }}>--</option>
+                            <option value="asc" style={{ background: "#0d0d14" }}>asc</option>
+                            <option value="desc" style={{ background: "#0d0d14" }}>desc</option>
                           </select>
                         ) : (
                           <input type={type} value={val} placeholder={placeholder}
@@ -399,9 +397,9 @@ export default function ApiExplorer() {
               </div>
             </div>
             <div className="flex border-b border-white/[0.05]">
-              {(["response","headers"] as ResTab[]).map((t) => (
+              {(["response", "headers"] as ResTab[]).map((t) => (
                 <button key={t} onClick={() => setResTab(t)}
-                  className={`font-mono text-[10.5px] px-4 py-2 border-b-2 transition-all capitalize ${resTab===t?"text-orange-500 border-orange-500":"text-white/30 border-transparent hover:text-white/60"}`}>
+                  className={`font-mono text-[10.5px] px-4 py-2 border-b-2 transition-all capitalize ${resTab === t ? "text-orange-500 border-orange-500" : "text-white/30 border-transparent hover:text-white/60"}`}>
                   {t}
                 </button>
               ))}

@@ -1,17 +1,17 @@
-import FeaturesSection from '@/components/FeaturesSection'
-import HeroSection from '@/components/HeroSection'
-import React from 'react'
-import ApiExplorer from '../components/ApiExplorer'
+// app/page.tsx
+import HeroSection from "@/components/HeroSection";
+import FeaturesSection from "@/components/FeaturesSection";
+import ApiExplorer from "@/components/ApiExplorer";
+import Footer from "@/components/Footer";
 
-const page = () => {
+
+export default function Home() {
   return (
-    <div>
+    <main className="bg-[#0a0a0f] min-h-screen">
       <HeroSection />
       <FeaturesSection />
       <ApiExplorer />
-    </div>
-  )
+      <Footer />
+    </main>
+  );
 }
-
-export default page
-
