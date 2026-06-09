@@ -21,7 +21,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
   if (isNaN(id) || id < 1 || id > TOTALS.products)
     return notFound(`Product with id '${params.id}' not found`);
 
-  try {
+  try {  
     const body = await req.json();
     const existing = generateProduct(id);
     return NextResponse.json({ ...existing, ...body, id }, { headers: CORS_HEADERS });
