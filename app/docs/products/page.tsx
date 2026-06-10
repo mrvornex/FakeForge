@@ -15,7 +15,7 @@ const ENDPOINTS: Endpoint[] = [
       { name: "order",  type: "string", required: false, description: "Sort direction: asc or desc" },
       { name: "delay",  type: "number", required: false, description: "Simulate latency in milliseconds" },
     ],
-    code: `const res = await fetch('https://fakeforge.vercel.app/products?limit=10&sortBy=price&order=asc');
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/products?limit=10&sortBy=price&order=asc');
 const data = await res.json();
 // { products: [...], total: 194, skip: 0, limit: 10 }`,
   },
@@ -26,7 +26,7 @@ const data = await res.json();
     params: [
       { name: "id", type: "number", required: true, description: "Product ID (1–194)" },
     ],
-    code: `const res = await fetch('https://fakeforge.vercel.app/products/1');
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/products/1');
 const product = await res.json();
 // { id: 1, title: "...", price: 549, category: "smartphones", ... }`,
   },
@@ -39,7 +39,7 @@ const product = await res.json();
       { name: "limit", type: "number", required: false, description: "Items per page" },
       { name: "skip",  type: "number", required: false, description: "Pagination offset" },
     ],
-    code: `const res = await fetch('https://fakeforge.vercel.app/products/search?q=phone');
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/products/search?q=phone');
 const data = await res.json();
 // { products: [...], total: 12, skip: 0, limit: 30 }`,
   },
@@ -48,7 +48,7 @@ const data = await res.json();
     path: "/products/categories",
     description: "Get all product categories",
     params: [],
-    code: `const res = await fetch('https://fakeforge.vercel.app/products/categories');
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/products/categories');
 const cats = await res.json();
 // [{ slug: "smartphones", name: "Smartphones", url: "..." }, ...]`,
   },
@@ -59,7 +59,7 @@ const cats = await res.json();
     params: [
       { name: "slug", type: "string", required: true, description: "Category slug (e.g. smartphones)" },
     ],
-    code: `const res = await fetch('https://fakeforge.vercel.app/products/category/smartphones');
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/products/category/smartphones');
 const data = await res.json();`,
   },
   {
@@ -67,7 +67,7 @@ const data = await res.json();`,
     path: "/products",
     description: "Add a new product",
     params: [],
-    code: `const res = await fetch('https://fakeforge.vercel.app/products', {
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/products', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
@@ -86,7 +86,7 @@ const data = await res.json();
     params: [
       { name: "id", type: "number", required: true, description: "Product ID to update" },
     ],
-    code: `const res = await fetch('https://fakeforge.vercel.app/products/1', {
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/products/1', {
   method: 'PUT',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({ title: 'Updated', price: 299 }),
@@ -100,7 +100,7 @@ const data = await res.json();`,
     params: [
       { name: "id", type: "number", required: true, description: "Product ID to patch" },
     ],
-    code: `const res = await fetch('https://fakeforge.vercel.app/products/1', {
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/products/1', {
   method: 'PATCH',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({ price: 199.99 }),
@@ -114,7 +114,7 @@ const data = await res.json();`,
     params: [
       { name: "id", type: "number", required: true, description: "Product ID to delete" },
     ],
-    code: `const res = await fetch('https://fakeforge.vercel.app/products/1', {
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/products/1', {
   method: 'DELETE',
 });
 const data = await res.json();

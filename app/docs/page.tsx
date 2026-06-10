@@ -14,7 +14,7 @@ const RESOURCES = [
 ];
 
 const CODE_QUICK = `// Any endpoint — no setup needed
-const res = await fetch('https://fakeforge.vercel.app/products?limit=5');
+const res = await fetch('https://fakeforge.vercel.app/api/products?limit=5');
 const { products } = await res.json();`;
 
 const CODE_PARAMS = `// Common query params work on all list endpoints

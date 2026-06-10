@@ -10,21 +10,21 @@ const ENDPOINTS: Endpoint[] = [
       { name: "skip",   type: "number", required: false, description: "Items to skip" },
       { name: "delay",  type: "number", required: false, description: "Simulate latency in ms" },
     ],
-    code: `const res = await fetch('https://fakeforge.vercel.app/quotes?limit=5');
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/quotes?limit=5');
 const data = await res.json();
 // { quotes: [...], total: 100, skip: 0, limit: 5 }`,
   },
   {
     method: "GET", path: "/quotes/:id", description: "Get single quote",
     params: [{ name: "id", type: "number", required: true, description: "Quote ID (1–100)" }],
-    code: `const res = await fetch('https://fakeforge.vercel.app/quotes/1');
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/quotes/1');
 const quote = await res.json();
 // { id: 1, quote: "The only way to do great work...", author: "Steve Jobs" }`,
   },
   {
     method: "GET", path: "/quotes/random", description: "Get a random quote",
     params: [],
-    code: `const res = await fetch('https://fakeforge.vercel.app/quotes/random');
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/quotes/random');
 const quote = await res.json();
 // { id: 42, quote: "...", author: "..." }`,
   },

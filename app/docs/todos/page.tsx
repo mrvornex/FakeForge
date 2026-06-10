@@ -10,33 +10,33 @@ const ENDPOINTS: Endpoint[] = [
       { name: "skip",   type: "number", required: false, description: "Items to skip" },
       { name: "delay",  type: "number", required: false, description: "Simulate latency in ms" },
     ],
-    code: `const res = await fetch('https://fakeforge.vercel.app/todos?limit=10');
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/todos?limit=10');
 const data = await res.json();
 // { todos: [...], total: 254, skip: 0, limit: 10 }`,
   },
   {
     method: "GET", path: "/todos/:id", description: "Get single todo",
     params: [{ name: "id", type: "number", required: true, description: "Todo ID (1–254)" }],
-    code: `const res = await fetch('https://fakeforge.vercel.app/todos/1');
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/todos/1');
 const todo = await res.json();
 // { id: 1, todo: "Buy groceries", completed: false, userId: 42 }`,
   },
   {
     method: "GET", path: "/todos/random", description: "Get a random todo",
     params: [],
-    code: `const res = await fetch('https://fakeforge.vercel.app/todos/random');
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/todos/random');
 const todo = await res.json();`,
   },
   {
     method: "GET", path: "/users/:id/todos", description: "Get todos by user",
     params: [{ name: "id", type: "number", required: true, description: "User ID" }],
-    code: `const res = await fetch('https://fakeforge.vercel.app/users/1/todos');
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/users/1/todos');
 const data = await res.json();`,
   },
   {
     method: "POST", path: "/todos", description: "Add a new todo",
     params: [],
-    code: `const res = await fetch('https://fakeforge.vercel.app/todos', {
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/todos', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({ todo: 'Learn Next.js', completed: false, userId: 5 }),
@@ -47,7 +47,7 @@ const data = await res.json();
   {
     method: "PATCH", path: "/todos/:id", description: "Update a todo",
     params: [{ name: "id", type: "number", required: true, description: "Todo ID" }],
-    code: `const res = await fetch('https://fakeforge.vercel.app/todos/1', {
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/todos/1', {
   method: 'PATCH',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({ completed: true }),
@@ -57,7 +57,7 @@ const data = await res.json();`,
   {
     method: "DELETE", path: "/todos/:id", description: "Delete a todo",
     params: [{ name: "id", type: "number", required: true, description: "Todo ID" }],
-    code: `const res = await fetch('https://fakeforge.vercel.app/todos/1', { method: 'DELETE' });
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/todos/1', { method: 'DELETE' });
 const data = await res.json();`,
   },
 ];

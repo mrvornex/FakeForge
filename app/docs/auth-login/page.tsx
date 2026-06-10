@@ -6,7 +6,7 @@ const ENDPOINTS: Endpoint[] = [
   {
     method: "POST", path: "/auth/login", description: "Login and get JWT tokens",
     params: [],
-    code: `const res = await fetch('https://fakeforge.vercel.app/auth/login', {
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/auth/login', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
@@ -25,7 +25,7 @@ const data = await res.json();
   {
     method: "GET", path: "/auth/me", description: "Get current authenticated user",
     params: [],
-    code: `const res = await fetch('https://fakeforge.vercel.app/auth/me', {
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/auth/me', {
   headers: {
     'Authorization': 'Bearer YOUR_ACCESS_TOKEN',
   },
@@ -36,7 +36,7 @@ const user = await res.json();
   {
     method: "POST", path: "/auth/refresh", description: "Refresh access token",
     params: [],
-    code: `const res = await fetch('https://fakeforge.vercel.app/auth/refresh', {
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/auth/refresh', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({

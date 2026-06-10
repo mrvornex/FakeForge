@@ -108,9 +108,9 @@ const FEATURES: Feature[] = [
     title: "Mock HTTP Status Codes",
     desc: "Test how your app handles different HTTP codes — just hit the right route and get the response you need.",
     chips: [
-      { label: "200 OK",            active: true },
-      { label: "201 Created"   },
-      { label: "400 Bad Request"},
+      { label: "200 OK",             active: true },
+      { label: "201 Created"    },
+      { label: "400 Bad Request" },
       { label: "401 Unauthorized"},
       { label: "403 Forbidden"  },
       { label: "404 Not Found"  },
@@ -132,17 +132,17 @@ function FeatureCard({ feature }: { feature: Feature }) {
     <div
       className={[
         "group relative bg-[#0d0d14] border border-white/[0.07] rounded-[14px] p-6",
-        "hover:border-orange-500/20 hover:-translate-y-0.5 transition-all duration-200 overflow-hidden",
+        "hover:border-blue-500/20 hover:-translate-y-0.5 transition-all duration-200 overflow-hidden",
         feature.wide ? "col-span-2" : "",
       ].join(" ")}
     >
       {/* Hover glow */}
       <div className="pointer-events-none absolute inset-0 rounded-[14px] opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-        style={{ background: "radial-gradient(circle at 30% 30%, rgba(249,115,22,0.06), transparent 70%)" }}
+        style={{ background: "radial-gradient(circle at 30% 30%, rgba(59,130,246,0.06), transparent 70%)" }}
       />
 
       {/* Icon */}
-      <div className="relative w-10 h-10 rounded-[10px] bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-500 mb-4">
+      <div className="relative w-10 h-10 rounded-[10px] bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-500 mb-4">
         {feature.icon}
       </div>
 
@@ -156,7 +156,7 @@ function FeatureCard({ feature }: { feature: Feature }) {
 
       {/* Tag */}
       {feature.tag && (
-        <div className="relative inline-flex items-center gap-1.5 mt-3.5 font-mono text-[10px] text-orange-500 bg-orange-500/[0.08] border border-orange-500/15 px-2.5 py-[3px] rounded-full">
+        <div className="relative inline-flex items-center gap-1.5 mt-3.5 font-mono text-[10px] text-blue-400 bg-blue-500/[0.08] border border-blue-500/15 px-2.5 py-[3px] rounded-full">
           {feature.tag}
         </div>
       )}
@@ -170,7 +170,7 @@ function FeatureCard({ feature }: { feature: Feature }) {
               className={[
                 "font-mono text-[10.5px] px-2.5 py-[3px] rounded-[5px] border",
                 chip.active
-                  ? "text-orange-500 bg-orange-500/[0.08] border-orange-500/20"
+                  ? "text-blue-400 bg-blue-500/[0.08] border-blue-500/20"
                   : "text-white/50 bg-white/[0.05] border-white/[0.08]",
               ].join(" ")}
             >
@@ -186,21 +186,21 @@ function FeatureCard({ feature }: { feature: Feature }) {
 // ─── Features Section ─────────────────────────────────────────────────────────
 export default function FeaturesSection() {
   return (
-    <section className="bg-[#0a0a0f] px-6 py-20">
+    <section className="bg-[#0F1117] px-6 py-20">
 
       {/* Label */}
       <div className="flex items-center justify-center gap-3 mb-4">
-        <div className="w-8 h-px bg-orange-500/40" />
-        <span className="font-mono text-[11px] text-orange-500 tracking-[1.5px] uppercase">
+        <div className="w-8 h-px bg-blue-500/40" />
+        <span className="font-mono text-[11px] text-blue-400 tracking-[1.5px] uppercase">
           Why FakeForge
         </span>
-        <div className="w-8 h-px bg-orange-500/40" />
+        <div className="w-8 h-px bg-blue-500/40" />
       </div>
 
       {/* Title */}
       <h2 className="font-['Syne',sans-serif] text-[40px] font-extrabold text-white text-center tracking-[-1.5px] leading-[1.1] mb-3">
         Everything you need to{" "}
-        <span className="text-orange-500">prototype fast</span>
+        <span className="text-blue-500">prototype fast</span>
       </h2>
       <p className="font-['Syne',sans-serif] text-[15px] text-white/40 text-center max-w-[420px] mx-auto mb-14 leading-relaxed">
         No backend? No problem. FakeForge gives you realistic data instantly so you can focus on building.

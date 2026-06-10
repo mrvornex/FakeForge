@@ -6,7 +6,7 @@ const ENDPOINTS: Endpoint[] = [
   {
     method: "GET", path: "/ip", description: "Get client IP address",
     params: [],
-    code: `const res = await fetch('https://fakeforge.vercel.app/ip');
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/ip');
 const data = await res.json();
 // { ip: "203.0.113.42" }`,
   },

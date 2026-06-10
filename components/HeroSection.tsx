@@ -1,153 +1,100 @@
 import Link from "next/link";
 
-// ─── Stats Data ───────────────────────────────────────────────────────────────
 const STATS = [
-  { num: "10+",   label: "Resources"   },
-  { num: "100%",  label: "Free Forever"},
-  { num: "0ms",   label: "Setup Time"  },
-  { num: "50k+",  label: "Developers"  },
+  { num: "10+",  suffix: "",  label: "Resources"   },
+  { num: "100",  suffix: "%", label: "Free Forever" },
+  { num: "0",    suffix: "ms",label: "Setup Time"   },
+  { num: "50k",  suffix: "+", label: "Developers"   },
 ];
 
-// ─── Code Preview Lines ───────────────────────────────────────────────────────
-const CODE_LINES = [
-  { ln: "1", parts: [{ t: "comment", v: "// Fetch fake products — no setup needed" }] },
-  { ln: "2", parts: [{ t: "fn", v: "fetch" }, { t: "plain", v: "(" }, { t: "str", v: "'https://fakeforge.vercel.app/products?limit=5'" }, { t: "plain", v: ")" }] },
-  { ln: "3", parts: [{ t: "plain", v: "  ." }, { t: "fn", v: "then" }, { t: "plain", v: "(" }, { t: "key", v: "res" }, { t: "plain", v: " => res." }, { t: "fn", v: "json" }, { t: "plain", v: "())" }] },
-  { ln: "4", parts: [{ t: "plain", v: "  ." }, { t: "fn", v: "then" }, { t: "plain", v: "(" }, { t: "key", v: "data" }, { t: "plain", v: " => console." }, { t: "fn", v: "log" }, { t: "plain", v: "(data));" }] },
-  { ln: "5", parts: [{ t: "comment", v: "// Response ↓" }], gap: true },
-  { ln: "6", parts: [{ t: "plain", v: "{ " }, { t: "key", v: "products" }, { t: "plain", v: ": [{ " }, { t: "key", v: "id" }, { t: "plain", v: ": " }, { t: "num", v: "1" }, { t: "plain", v: ", " }, { t: "key", v: "title" }, { t: "plain", v: ": " }, { t: "str", v: '"iPhone 9"' }, { t: "plain", v: ", " }, { t: "key", v: "price" }, { t: "plain", v: ": " }, { t: "num", v: "549" }, { t: "plain", v: ", ... }]," }] },
-  { ln: "7", parts: [{ t: "plain", v: "  " }, { t: "key", v: "total" }, { t: "plain", v: ": " }, { t: "num", v: "194" }, { t: "plain", v: ", " }, { t: "key", v: "skip" }, { t: "plain", v: ": " }, { t: "num", v: "0" }, { t: "plain", v: ", " }, { t: "key", v: "limit" }, { t: "plain", v: ": " }, { t: "num", v: "5" }, { t: "plain", v: " }" }] },
-];
-
-// ─── Syntax color map ─────────────────────────────────────────────────────────
-const syntaxClass: Record<string, string> = {
-  comment : "text-white/25",
-  key     : "text-orange-400",
-  str     : "text-green-400",
-  fn      : "text-blue-400",
-  num     : "text-fuchsia-400",
-  plain   : "text-white/75",
-};
-
-// ─── Icons ────────────────────────────────────────────────────────────────────
-function IconTerminal() {
+function GitHubIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="4 17 10 11 4 5" /><line x1="12" y1="19" x2="20" y2="19" />
-    </svg>
-  );
-}
-function IconGitHub() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
     </svg>
   );
 }
 
-// ─── Hero Section ─────────────────────────────────────────────────────────────
 export default function HeroSection() {
   return (
-    <section className="relative bg-[#0a0a0f] overflow-hidden px-6 pt-20 pb-16 flex flex-col items-center text-center">
-
-      {/* Grid background */}
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(249,115,22,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(249,115,22,0.04) 1px, transparent 1px)",
-          backgroundSize: "48px 48px",
-        }}
-      />
-
-      {/* Radial glow */}
-      <div
-        className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 w-[600px] h-[300px]"
-        style={{ background: "radial-gradient(ellipse, rgba(249,115,22,0.12) 0%, transparent 70%)" }}
-      />
+    <section className="bg-[#0f1117] px-6 pt-16 pb-14 flex flex-col items-center text-center">
 
       {/* Badge */}
-      <div className="relative inline-flex items-center gap-2 bg-orange-500/10 border border-orange-500/25 rounded-full px-4 py-1.5 mb-7">
-        <span className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse" />
-        <span className="font-mono text-[11.5px] text-orange-400 tracking-wide">
+      <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 rounded-full px-3.5 py-1.5 mb-6">
+        <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
+        <span className="font-mono text-[11px] text-blue-400 tracking-wide">
           Free Fake REST API — No auth required
         </span>
       </div>
 
-      {/* Heading */}
-      <h1 className="relative font-['Syne',sans-serif] text-[58px] font-extrabold leading-[1.08] tracking-[-2px] text-white mb-5 max-w-2xl">
+      {/* Title */}
+      <h1 className="text-[48px] font-semibold text-slate-100 leading-[1.1] tracking-[-1.5px] mb-4 max-w-xl">
         Fake data,{" "}
-        <span className="text-orange-500">real speed.</span>
-        <br />
-        <span className="text-white/35">Build faster.</span>
+        <span className="text-blue-500">real speed.</span>
       </h1>
 
       {/* Subtitle */}
-      <p className="relative font-['Syne',sans-serif] text-[17px] text-white/50 leading-relaxed max-w-lg mb-10">
+      <p className="text-[16px] text-slate-500 leading-relaxed max-w-[440px] mb-8">
         FakeForge gives you instant{" "}
-        <strong className="text-white/80 font-semibold">fake JSON APIs</strong> for
-        products, users, posts, carts, todos & more — so you can prototype without a backend.
+        <span className="text-slate-400">fake JSON APIs</span> for products, users,
+        posts & more — prototype without a backend.
       </p>
 
-      {/* CTA Buttons */}
-      <div className="relative flex items-center gap-3 mb-14 flex-wrap justify-center">
-        <Link
-          href="/docs"
-          className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-[#0a0a0f] font-['Syne',sans-serif] text-sm font-bold px-6 py-3 rounded-[9px] transition-all hover:-translate-y-px"
-        >
-          <IconTerminal />
-          Explore the Docs
+      {/* Buttons */}
+      <div className="flex items-center gap-2.5 mb-12">
+        <Link href="/docs"
+          className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white text-[14px] font-medium px-5 py-2.5 rounded-[7px] transition-colors">
+          Explore Docs
         </Link>
-        <a
-          href="https://github.com/mrvornex/FakeForge"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-2 bg-transparent hover:bg-white/[0.05] text-white/65 hover:text-white font-['Syne',sans-serif] text-sm font-semibold px-6 py-3 rounded-[9px] border border-white/[0.12] hover:border-white/25 transition-all"
-        >
-          <IconGitHub />
-          View on GitHub
+        <a href="https://github.com/yourusername/fakeforge" target="_blank" rel="noopener noreferrer"
+          className="flex items-center gap-2 text-[14px] text-slate-400 hover:text-slate-200 border border-white/[0.1] hover:border-white/[0.2] px-5 py-2.5 rounded-[7px] transition-all">
+          <GitHubIcon /> GitHub
         </a>
       </div>
 
-      {/* Code Window */}
-      <div className="relative w-full max-w-[620px] bg-[#0d0d14] border border-white/[0.08] rounded-xl overflow-hidden text-left">
-
-        {/* Title bar */}
-        <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06] bg-[#0d0d14]">
+      {/* Code window */}
+      <div className="w-full max-w-[560px] bg-[#0d1117] border border-white/[0.08] rounded-[10px] overflow-hidden text-left">
+        <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-white/[0.06]">
           <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
           <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
           <span className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
-          <span className="font-mono text-[11px] text-white/25 ml-auto">example.js</span>
+          <span className="font-mono text-[11px] text-slate-600 ml-auto">example.js</span>
         </div>
-
-        {/* Code lines */}
-        <div className="px-6 py-5 font-mono text-[12.5px] leading-[1.8]">
-          {CODE_LINES.map((line) => (
-            <div key={line.ln} className={line.gap ? "mt-3" : ""}>
-              <span className="text-white/15 mr-5 select-none">{line.ln}</span>
-              {line.parts.map((part, i) => (
-                <span key={i} className={syntaxClass[part.t]}>
-                  {part.v}
-                </span>
-              ))}
-            </div>
-          ))}
+        <div className="px-5 py-4 font-mono text-[12px] leading-[1.75]">
+          <div className="text-slate-600">{"// No setup needed — just fetch"}</div>
+          <div>
+            <span className="text-blue-400">fetch</span>
+            <span className="text-slate-300">(</span>
+            <span className="text-green-400">'https://fakeforge.vercel.app/api/products?limit=5'</span>
+            <span className="text-slate-300">)</span>
+          </div>
+          <div>
+            <span className="text-slate-400">  .then(res ={">"} res.</span>
+            <span className="text-blue-400">json</span>
+            <span className="text-slate-400">())</span>
+          </div>
+          <div>
+            <span className="text-slate-400">  .then(data ={">"} console.</span>
+            <span className="text-blue-400">log</span>
+            <span className="text-slate-400">(data));</span>
+          </div>
+          <div className="mt-2.5 text-slate-600">{"// → { products: [...], total: 194, skip: 0, limit: 5 }"}</div>
         </div>
       </div>
 
-      {/* Stats Row */}
-      <div className="relative flex items-center gap-6 mt-7 flex-wrap justify-center">
+      {/* Stats */}
+      <div className="flex items-center mt-8">
         {STATS.map((s, i) => (
-          <div key={s.label} className="flex items-center gap-6">
-            <div className="flex flex-col items-center gap-0.5">
-              <span className="font-['Syne',sans-serif] text-[22px] font-extrabold text-white">
-                {s.num.replace(/(\d+)([^0-9]*)/, (_, n, suf) => n)}<span className="text-orange-500">{s.num.replace(/^[\d]+/, "")}</span>
+          <div key={s.label} className="flex items-center">
+            <div className="flex flex-col items-center px-7">
+              <span className="text-[20px] font-semibold text-slate-100">
+                {s.num}<span className="text-blue-500">{s.suffix}</span>
               </span>
-              <span className="font-mono text-[10px] text-white/30 uppercase tracking-wide">{s.label}</span>
+              <span className="font-mono text-[10px] text-slate-600 uppercase tracking-wide mt-0.5">
+                {s.label}
+              </span>
             </div>
-            {i < STATS.length - 1 && (
-              <div className="w-px h-8 bg-white/[0.08]" />
-            )}
+            {i < STATS.length - 1 && <div className="w-px h-8 bg-white/[0.06]" />}
           </div>
         ))}
       </div>

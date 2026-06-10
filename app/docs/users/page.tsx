@@ -13,14 +13,14 @@ const ENDPOINTS: Endpoint[] = [
       { name: "order",  type: "string", required: false, description: "asc or desc" },
       { name: "delay",  type: "number", required: false, description: "Simulate latency in milliseconds" },
     ],
-    code: `const res = await fetch('https://fakeforge.vercel.app/users?limit=10');
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/users?limit=10');
 const data = await res.json();
 // { users: [...], total: 208, skip: 0, limit: 10 }`,
   },
   {
     method: "GET", path: "/users/:id", description: "Get single user",
     params: [{ name: "id", type: "number", required: true, description: "User ID (1–208)" }],
-    code: `const res = await fetch('https://fakeforge.vercel.app/users/1');
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/users/1');
 const user = await res.json();
 // { id: 1, firstName: "Emily", lastName: "Smith", email: "...", ... }`,
   },
@@ -30,32 +30,32 @@ const user = await res.json();
       { name: "q",     type: "string", required: true,  description: "Search by name, email or username" },
       { name: "limit", type: "number", required: false, description: "Items per page" },
     ],
-    code: `const res = await fetch('https://fakeforge.vercel.app/users/search?q=emily');
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/users/search?q=emily');
 const data = await res.json();`,
   },
   {
     method: "GET", path: "/users/:id/posts", description: "Get user's posts",
     params: [{ name: "id", type: "number", required: true, description: "User ID" }],
-    code: `const res = await fetch('https://fakeforge.vercel.app/users/1/posts');
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/users/1/posts');
 const data = await res.json();
 // { posts: [...], total: 8, skip: 0, limit: 8 }`,
   },
   {
     method: "GET", path: "/users/:id/todos", description: "Get user's todos",
     params: [{ name: "id", type: "number", required: true, description: "User ID" }],
-    code: `const res = await fetch('https://fakeforge.vercel.app/users/1/todos');
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/users/1/todos');
 const data = await res.json();`,
   },
   {
     method: "GET", path: "/users/:id/carts", description: "Get user's carts",
     params: [{ name: "id", type: "number", required: true, description: "User ID" }],
-    code: `const res = await fetch('https://fakeforge.vercel.app/users/1/carts');
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/users/1/carts');
 const data = await res.json();`,
   },
   {
     method: "POST", path: "/users", description: "Add a new user",
     params: [],
-    code: `const res = await fetch('https://fakeforge.vercel.app/users', {
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/users', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
@@ -69,7 +69,7 @@ const data = await res.json();`,
   {
     method: "PATCH", path: "/users/:id", description: "Update a user",
     params: [{ name: "id", type: "number", required: true, description: "User ID to patch" }],
-    code: `const res = await fetch('https://fakeforge.vercel.app/users/1', {
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/users/1', {
   method: 'PATCH',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({ firstName: 'Updated' }),
@@ -79,7 +79,7 @@ const data = await res.json();`,
   {
     method: "DELETE", path: "/users/:id", description: "Delete a user",
     params: [{ name: "id", type: "number", required: true, description: "User ID to delete" }],
-    code: `const res = await fetch('https://fakeforge.vercel.app/users/1', {
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/users/1', {
   method: 'DELETE',
 });
 const data = await res.json();

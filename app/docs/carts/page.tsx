@@ -10,27 +10,27 @@ const ENDPOINTS: Endpoint[] = [
       { name: "skip",  type: "number", required: false, description: "Items to skip" },
       { name: "delay", type: "number", required: false, description: "Simulate latency in ms" },
     ],
-    code: `const res = await fetch('https://fakeforge.vercel.app/carts');
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/carts');
 const data = await res.json();
 // { carts: [...], total: 20, skip: 0, limit: 20 }`,
   },
   {
     method: "GET", path: "/carts/:id", description: "Get single cart",
     params: [{ name: "id", type: "number", required: true, description: "Cart ID (1–20)" }],
-    code: `const res = await fetch('https://fakeforge.vercel.app/carts/1');
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/carts/1');
 const cart = await res.json();
 // { id: 1, products: [...], total: 1216, discountedTotal: 1080, userId: 45, totalProducts: 3 }`,
   },
   {
     method: "GET", path: "/users/:id/carts", description: "Get carts by user",
     params: [{ name: "id", type: "number", required: true, description: "User ID" }],
-    code: `const res = await fetch('https://fakeforge.vercel.app/users/5/carts');
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/users/5/carts');
 const data = await res.json();`,
   },
   {
     method: "POST", path: "/carts", description: "Add a new cart",
     params: [],
-    code: `const res = await fetch('https://fakeforge.vercel.app/carts', {
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/carts', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
@@ -46,7 +46,7 @@ const data = await res.json();`,
   {
     method: "PATCH", path: "/carts/:id", description: "Update a cart",
     params: [{ name: "id", type: "number", required: true, description: "Cart ID" }],
-    code: `const res = await fetch('https://fakeforge.vercel.app/carts/1', {
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/carts/1', {
   method: 'PATCH',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({ products: [{ id: 1, quantity: 5 }] }),
@@ -56,7 +56,7 @@ const data = await res.json();`,
   {
     method: "DELETE", path: "/carts/:id", description: "Delete a cart",
     params: [{ name: "id", type: "number", required: true, description: "Cart ID" }],
-    code: `const res = await fetch('https://fakeforge.vercel.app/carts/1', { method: 'DELETE' });
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/carts/1', { method: 'DELETE' });
 const data = await res.json();`,
   },
 ];

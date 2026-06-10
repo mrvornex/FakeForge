@@ -59,7 +59,7 @@ function syntaxHighlight(json: string): string {
       /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
       (m) => {
         if (/^"/.test(m)) {
-          if (/:$/.test(m)) return `<span style="color:#f97316">${m}</span>`;
+          if (/:$/.test(m)) return `<span style="color:#3b82f6">${m}</span>`;
           return `<span style="color:#4ade80">${m}</span>`;
         }
         if (/true|false/.test(m)) return `<span style="color:#60a5fa">${m}</span>`;
@@ -97,13 +97,13 @@ function Sidebar({
             className={[
               "flex items-center gap-2.5 px-3 py-2.5 rounded-[8px] cursor-pointer transition-all border mb-0.5",
               r.name === active
-                ? "bg-orange-500/10 border-orange-500/20"
+                ? "bg-blue-500/10 border-blue-500/20"
                 : "border-transparent hover:bg-white/[0.04]",
             ].join(" ")}
           >
             <span className="w-[7px] h-[7px] rounded-full flex-shrink-0" style={{ background: r.color }} />
-            <span className={`font-mono text-[12px] flex-1 ${r.name === active ? "text-orange-500" : "text-white/50"}`}>{r.name}</span>
-            <span className={`font-mono text-[10px] px-1.5 py-px rounded-full ${r.name === active ? "text-orange-500/60 bg-orange-500/[0.08]" : "text-white/20 bg-white/[0.05]"}`}>{r.count}</span>
+            <span className={`font-mono text-[12px] flex-1 ${r.name === active ? "text-blue-500" : "text-white/50"}`}>{r.name}</span>
+            <span className={`font-mono text-[10px] px-1.5 py-px rounded-full ${r.name === active ? "text-blue-500/60 bg-blue-500/[0.08]" : "text-white/20 bg-white/[0.05]"}`}>{r.count}</span>
           </div>
         ))}
       </div>
@@ -195,26 +195,26 @@ export default function ApiExplorer() {
   const methodColor = method === "GET" ? "text-green-400 bg-green-400/10 border-green-400/20"
     : method === "POST" ? "text-blue-400 bg-blue-400/10 border-blue-400/20"
       : method === "PUT" ? "text-yellow-400 bg-yellow-400/10 border-yellow-400/20"
-        : method === "PATCH" ? "text-orange-400 bg-orange-400/10 border-orange-400/20"
+        : method === "PATCH" ? "text-blue-400 bg-blue-400/10 border-blue-400/20"
           : "text-red-400 bg-red-400/10 border-red-400/20";
 
   return (
-    <section className="bg-[#0a0a0f] px-6 py-20">
+    <section className="bg-[#0F1117] px-6 py-20">
       {/* Label */}
       <div className="flex items-center justify-center gap-3 mb-4">
-        <div className="w-8 h-px bg-orange-500/40" />
-        <span className="font-mono text-[11px] text-orange-500 tracking-[1.5px] uppercase">Live API Explorer</span>
-        <div className="w-8 h-px bg-orange-500/40" />
+        <div className="w-8 h-px bg-blue-500/40" />
+        <span className="font-mono text-[11px] text-blue-500 tracking-[1.5px] uppercase">Live API Explorer</span>
+        <div className="w-8 h-px bg-blue-500/40" />
       </div>
       <h2 className="font-['Syne',sans-serif] text-[40px] font-extrabold text-white text-center tracking-[-1.5px] leading-[1.1] mb-3">
-        Try it <span className="text-orange-500">right now</span>
+        Try it <span className="text-blue-500">right now</span>
       </h2>
       <p className="font-['Syne',sans-serif] text-[14px] text-white/40 text-center mb-12 leading-relaxed">
         Pick a resource, set your params, hit Send — real JSON response instantly. No setup needed.
       </p>
 
       {/* Explorer Container */}
-      <div className="flex max-w-[1000px] mx-auto bg-[#0d0d14] border border-white/[0.07] rounded-[16px] overflow-hidden min-h-[560px]">
+      <div className="flex max-w-[1000px] mx-auto bg-[#0F1117] border border-white/[0.07] rounded-[16px] overflow-hidden min-h-[560px]">
         <Sidebar resources={RESOURCES} active={resource.name} search={search} onSearch={setSearch} onSelect={handleSelect} />
 
         {/* Main Panel */}
@@ -236,9 +236,9 @@ export default function ApiExplorer() {
               </span>
               <button
                 onClick={sendRequest} disabled={status === "loading"}
-                className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 disabled:opacity-50 text-[#0a0a0f] font-['Syne',sans-serif] text-[13px] font-bold px-4 py-[7px] rounded-[7px] transition-all whitespace-nowrap"
+                className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 disabled:opacity-50 text-white font-['Syne',sans-serif] text-[13px] font-bold px-4 py-[7px] rounded-[7px] transition-all whitespace-nowrap"
               >
-                {status === "loading" ? <span className="inline-block w-3.5 h-3.5 border-2 border-[#0a0a0f]/20 border-t-[#0a0a0f] rounded-full animate-spin" /> : null}
+                {status === "loading" ? <span className="inline-block w-3.5 h-3.5 border-2 border-white/20 border-t-white rounded-full animate-spin" /> : null}
                 {status === "loading" ? "Sending" : "Send ↗"}
               </button>
               <button onClick={() => { setJson(""); setStatus("idle"); setCode(null); setElapsed(null); }}
@@ -250,7 +250,7 @@ export default function ApiExplorer() {
               Try:&nbsp;
               {resource.hints.map((h, i) => (
                 <span key={h}>
-                  <span className="text-orange-500/50 cursor-pointer hover:text-orange-500 transition-colors" onClick={() => {
+                  <span className="text-blue-500/50 cursor-pointer hover:text-blue-500 transition-colors" onClick={() => {
                     const field = document.querySelector<HTMLSpanElement>('.url-display');
                     if (field) field.textContent = `${BASE}${h}`;
                   }}>{h}</span>
@@ -266,7 +266,7 @@ export default function ApiExplorer() {
               <button key={t} onClick={() => setTab(t)}
                 className={[
                   "font-mono text-[11px] px-4 py-2.5 border-b-2 transition-all capitalize",
-                  tab === t ? "text-orange-500 border-orange-500" : "text-white/30 border-transparent hover:text-white/60",
+                  tab === t ? "text-blue-500 border-blue-500" : "text-white/30 border-transparent hover:text-white/60",
                   t === "body" && !["POST", "PUT", "PATCH"].includes(method) ? "opacity-40" : "",
                 ].join(" ")}
               >{t}</button>
@@ -298,7 +298,7 @@ export default function ApiExplorer() {
                       <td className="py-1 pr-3">
                         {key === "sortBy" ? (
                           <select value={params.order} onChange={setParam("order")}
-                            className="w-full bg-white/[0.04] border border-white/[0.08] focus:border-orange-500/30 rounded-[5px] px-2.5 py-[5px] font-mono text-[11px] text-white/70 outline-none">
+                            className="w-full bg-white/[0.04] border border-white/[0.08] focus:border-blue-500/30 rounded-[5px] px-2.5 py-[5px] font-mono text-[11px] text-white/70 outline-none">
                             <option value="" style={{ background: "#0d0d14" }}>--</option>
                             <option value="asc" style={{ background: "#0d0d14" }}>asc</option>
                             <option value="desc" style={{ background: "#0d0d14" }}>desc</option>
@@ -306,7 +306,7 @@ export default function ApiExplorer() {
                         ) : (
                           <input type={type} value={val} placeholder={placeholder}
                             onChange={setParam(key as keyof Params)}
-                            className="w-full bg-white/[0.04] border border-white/[0.08] focus:border-orange-500/30 rounded-[5px] px-2.5 py-[5px] font-mono text-[11px] text-white/70 outline-none transition-colors" />
+                            className="w-full bg-white/[0.04] border border-white/[0.08] focus:border-blue-500/30 rounded-[5px] px-2.5 py-[5px] font-mono text-[11px] text-white/70 outline-none transition-colors" />
                         )}
                       </td>
                       <td className="font-mono text-[10px] text-white/20 py-1 whitespace-nowrap">{desc}</td>
@@ -329,7 +329,7 @@ export default function ApiExplorer() {
                   <tr>
                     <td className="font-mono text-[11px] text-white/40 pr-3 py-1">Authorization</td>
                     <td><input value={authHeader} onChange={(e) => setAuthHeader(e.target.value)} placeholder="Bearer <token>"
-                      className="w-full bg-white/[0.04] border border-white/[0.08] focus:border-orange-500/30 rounded-[5px] px-2.5 py-[5px] font-mono text-[11px] text-white/70 outline-none transition-colors" /></td>
+                      className="w-full bg-white/[0.04] border border-white/[0.08] focus:border-blue-500/30 rounded-[5px] px-2.5 py-[5px] font-mono text-[11px] text-white/70 outline-none transition-colors" /></td>
                   </tr>
                 </tbody>
               </table>
@@ -337,7 +337,7 @@ export default function ApiExplorer() {
             {tab === "body" && (
               <textarea value={bodyText} onChange={(e) => setBodyText(e.target.value)}
                 placeholder='{ "title": "New Product", "price": 99 }'
-                className="w-full bg-white/[0.03] border border-white/[0.08] focus:border-orange-500/30 rounded-[7px] px-3 py-2.5 font-mono text-[11.5px] text-white/70 outline-none resize-none h-[100px] leading-relaxed transition-colors" />
+                className="w-full bg-white/[0.03] border border-white/[0.08] focus:border-blue-500/30 rounded-[7px] px-3 py-2.5 font-mono text-[11.5px] text-white/70 outline-none resize-none h-[100px] leading-relaxed transition-colors" />
             )}
             {tab === "auth" && (
               <div className="flex flex-col gap-3">
@@ -350,18 +350,18 @@ export default function ApiExplorer() {
                     <tr>
                       <td className="font-mono text-[11px] text-white/40 pr-3 py-1">Username</td>
                       <td><input value={authUser} onChange={(e) => setAuthUser(e.target.value)} placeholder="emilys"
-                        className="w-full bg-white/[0.04] border border-white/[0.08] focus:border-orange-500/30 rounded-[5px] px-2.5 py-[5px] font-mono text-[11px] text-white/70 outline-none transition-colors" /></td>
+                        className="w-full bg-white/[0.04] border border-white/[0.08] focus:border-blue-500/30 rounded-[5px] px-2.5 py-[5px] font-mono text-[11px] text-white/70 outline-none transition-colors" /></td>
                     </tr>
                     <tr>
                       <td className="font-mono text-[11px] text-white/40 pr-3 py-1">Password</td>
                       <td><input type="password" value={authPass} onChange={(e) => setAuthPass(e.target.value)} placeholder="emilyspass"
-                        className="w-full bg-white/[0.04] border border-white/[0.08] focus:border-orange-500/30 rounded-[5px] px-2.5 py-[5px] font-mono text-[11px] text-white/70 outline-none transition-colors" /></td>
+                        className="w-full bg-white/[0.04] border border-white/[0.08] focus:border-blue-500/30 rounded-[5px] px-2.5 py-[5px] font-mono text-[11px] text-white/70 outline-none transition-colors" /></td>
                     </tr>
                     <tr>
                       <td />
                       <td className="pt-2">
                         <button onClick={doLogin}
-                          className="bg-orange-500/15 border border-orange-500/30 text-orange-500 font-['Syne',sans-serif] text-[12px] px-4 py-[6px] rounded-[6px] cursor-pointer hover:bg-orange-500/25 transition-all">
+                          className="bg-blue-500/15 border border-blue-500/30 text-blue-500 font-['Syne',sans-serif] text-[12px] px-4 py-[6px] rounded-[6px] cursor-pointer hover:bg-blue-500/25 transition-all">
                           Login → Get Token
                         </button>
                       </td>
@@ -399,7 +399,7 @@ export default function ApiExplorer() {
             <div className="flex border-b border-white/[0.05]">
               {(["response", "headers"] as ResTab[]).map((t) => (
                 <button key={t} onClick={() => setResTab(t)}
-                  className={`font-mono text-[10.5px] px-4 py-2 border-b-2 transition-all capitalize ${resTab === t ? "text-orange-500 border-orange-500" : "text-white/30 border-transparent hover:text-white/60"}`}>
+                  className={`font-mono text-[10.5px] px-4 py-2 border-b-2 transition-all capitalize ${resTab === t ? "text-blue-500 border-blue-500" : "text-white/30 border-transparent hover:text-white/60"}`}>
                   {t}
                 </button>
               ))}
@@ -412,7 +412,7 @@ export default function ApiExplorer() {
               )}
               {status === "loading" && (
                 <div className="text-center py-8 flex items-center justify-center gap-2">
-                  <span className="inline-block w-3.5 h-3.5 border-2 border-orange-500/20 border-t-orange-500 rounded-full animate-spin" />
+                  <span className="inline-block w-3.5 h-3.5 border-2 border-blue-500/20 border-t-blue-500 rounded-full animate-spin" />
                   <span className="font-mono text-[11px] text-white/30">Fetching {resource.name}...</span>
                 </div>
               )}

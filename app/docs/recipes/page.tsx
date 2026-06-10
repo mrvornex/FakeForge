@@ -12,33 +12,33 @@ const ENDPOINTS: Endpoint[] = [
       { name: "order",  type: "string", required: false, description: "asc or desc" },
       { name: "delay",  type: "number", required: false, description: "Simulate latency in ms" },
     ],
-    code: `const res = await fetch('https://fakeforge.vercel.app/recipes?limit=10&sortBy=rating&order=desc');
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/recipes?limit=10&sortBy=rating&order=desc');
 const data = await res.json();
 // { recipes: [...], total: 50, skip: 0, limit: 10 }`,
   },
   {
     method: "GET", path: "/recipes/:id", description: "Get single recipe",
     params: [{ name: "id", type: "number", required: true, description: "Recipe ID (1–50)" }],
-    code: `const res = await fetch('https://fakeforge.vercel.app/recipes/1');
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/recipes/1');
 const recipe = await res.json();
 // { id: 1, name: "...", ingredients: [...], instructions: [...], cuisine: "Italian", ... }`,
   },
   {
     method: "GET", path: "/recipes/search", description: "Search recipes",
     params: [{ name: "q", type: "string", required: true, description: "Search by name or cuisine" }],
-    code: `const res = await fetch('https://fakeforge.vercel.app/recipes/search?q=pasta');
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/recipes/search?q=pasta');
 const data = await res.json();`,
   },
   {
     method: "GET", path: "/recipes/meal-type/:type", description: "Get recipes by meal type",
     params: [{ name: "type", type: "string", required: true, description: "Meal type: breakfast, lunch, dinner, snack, dessert" }],
-    code: `const res = await fetch('https://fakeforge.vercel.app/recipes/meal-type/dinner');
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/recipes/meal-type/dinner');
 const data = await res.json();`,
   },
   {
     method: "POST", path: "/recipes", description: "Add a new recipe",
     params: [],
-    code: `const res = await fetch('https://fakeforge.vercel.app/recipes', {
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/recipes', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({ name: 'My Recipe', cuisine: 'Pakistani', servings: 4 }),
@@ -48,7 +48,7 @@ const data = await res.json();`,
   {
     method: "PATCH", path: "/recipes/:id", description: "Update a recipe",
     params: [{ name: "id", type: "number", required: true, description: "Recipe ID" }],
-    code: `const res = await fetch('https://fakeforge.vercel.app/recipes/1', {
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/recipes/1', {
   method: 'PATCH',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({ servings: 6 }),
@@ -58,7 +58,7 @@ const data = await res.json();`,
   {
     method: "DELETE", path: "/recipes/:id", description: "Delete a recipe",
     params: [{ name: "id", type: "number", required: true, description: "Recipe ID" }],
-    code: `const res = await fetch('https://fakeforge.vercel.app/recipes/1', { method: 'DELETE' });
+    code: `const res = await fetch('https://fakeforge.vercel.app/api/recipes/1', { method: 'DELETE' });
 const data = await res.json();`,
   },
 ];

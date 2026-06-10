@@ -113,15 +113,15 @@ export default function Navbar() {
   return (
     <header className="w-full sticky top-0 z-50">
       {/* ── Main Nav ── */}
-      <nav className="bg-[#0a0a0f] border-b border-white/[0.08] px-6 h-[60px] flex items-center justify-between relative">
+      <nav className="bg-[#0F1117] border-b border-blue-100 px-6 h-[60px] flex items-center justify-between relative shadow-sm">
 
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5 flex-shrink-0 group">
-          <div className="w-8 h-8 rounded-[7px] bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center font-mono text-[13px] font-semibold text-white tracking-tighter select-none">
+          <div className="w-8 h-8 rounded-[7px] bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center font-mono text-[13px] font-semibold text-white tracking-tighter select-none">
             FF
           </div>
           <span className="font-['Syne',sans-serif] text-[17px] font-bold text-white tracking-tight">
-            Fake<span className="text-orange-500">Forge</span>
+            Fake<span className="text-blue-600">Forge</span>
           </span>
         </Link>
 
@@ -137,14 +137,14 @@ export default function Navbar() {
                 className={[
                   "flex items-center gap-1.5 px-3.5 py-1.5 rounded-[7px] text-[13.5px] font-['Syne',sans-serif] transition-all duration-150 border whitespace-nowrap",
                   active
-                    ? "text-white bg-orange-500/10 border-orange-500/20"
-                    : "text-white/50 border-transparent hover:text-white/90 hover:bg-white/[0.06] hover:border-white/[0.06]",
+                    ? "text-blue-600 bg-blue-50 border-blue-200"
+                    : "text-gray-500 border-transparent hover:text-gray-900 hover:bg-gray-100 hover:border-gray-200",
                 ].join(" ")}
               >
                 {Icon && <Icon />}
                 {link.label}
                 {link.badge && (
-                  <span className="font-mono text-[9px] font-semibold bg-orange-500 text-white px-1.5 py-px rounded uppercase tracking-wide">
+                  <span className="font-mono text-[9px] font-semibold bg-blue-600 text-white px-1.5 py-px rounded uppercase tracking-wide">
                     {link.badge}
                   </span>
                 )}
@@ -155,17 +155,17 @@ export default function Navbar() {
 
         {/* Right Side */}
         <div className="hidden md:flex items-center gap-2.5 flex-shrink-0">
-          <span className="font-mono text-[11px] text-white/30 bg-white/[0.05] border border-white/[0.08] px-2 py-1 rounded-[5px] tracking-wide">
+          <span className="font-mono text-[11px] text-gray-400 bg-gray-100 border border-gray-200 px-2 py-1 rounded-[5px] tracking-wide">
             v2.0.0
           </span>
 
-          <div className="w-px h-[22px] bg-white/[0.08]" />
+          <div className="w-px h-[22px] bg-gray-200" />
 
           <a
             href="https://github.com/mrvornex/FakeForge"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 text-[13px] font-['Syne',sans-serif] font-semibold text-white/60 px-3 py-[7px] rounded-[7px] border border-white/[0.12] bg-white/[0.04] hover:text-white hover:border-white/20 hover:bg-white/[0.08] transition-all duration-150"
+            className="flex items-center gap-1.5 text-[13px] font-['Syne',sans-serif] font-semibold text-gray-600 px-3 py-[7px] rounded-[7px] border border-gray-200 bg-gray-50 hover:text-gray-900 hover:border-gray-300 hover:bg-gray-100 transition-all duration-150"
           >
             <Icons.GitHub />
             GitHub
@@ -173,7 +173,7 @@ export default function Navbar() {
 
           <Link
             href="/docs"
-            className="flex items-center gap-1.5 text-[13px] font-['Syne',sans-serif] font-semibold text-[#0a0a0f] px-4 py-[7px] rounded-[7px] bg-orange-500 hover:bg-orange-600 transition-all duration-150 border border-orange-500 hover:border-orange-600"
+            className="flex items-center gap-1.5 text-[13px] font-['Syne',sans-serif] font-semibold text-white px-4 py-[7px] rounded-[7px] bg-blue-600 hover:bg-blue-700 transition-all duration-150 border border-blue-600 hover:border-blue-700"
           >
             <Icons.Terminal />
             Try API
@@ -183,7 +183,7 @@ export default function Navbar() {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setMobileOpen((o) => !o)}
-          className="md:hidden text-white/60 hover:text-white transition-colors p-1"
+          className="md:hidden text-gray-500 hover:text-gray-900 transition-colors p-1"
           aria-label="Toggle menu"
         >
           {mobileOpen ? <Icons.X /> : <Icons.Menu />}
@@ -191,7 +191,7 @@ export default function Navbar() {
       </nav>
 
       {/* ── Sub Nav (API endpoints) ── */}
-      <div className="bg-[#0d0d14] border-b border-white/[0.06] px-6 h-[42px] flex items-center gap-0.5 overflow-x-auto scrollbar-none">
+      <div className="bg-[#0F1117] border-b border-gray-200 px-6 h-[42px] flex items-center gap-0.5 overflow-x-auto scrollbar-none">
         {SUB_LINKS.map((link) => {
           const active = pathname === link.href;
           return (
@@ -201,8 +201,8 @@ export default function Navbar() {
               className={[
                 "flex items-center gap-1.5 px-3 py-[5px] rounded-[5px] font-mono text-[11.5px] whitespace-nowrap border transition-all duration-150",
                 active
-                  ? "text-orange-500 bg-orange-500/[0.08] border-orange-500/15"
-                  : "text-white/40 border-transparent hover:text-white/80 hover:bg-white/[0.05]",
+                  ? "text-blue-600 bg-blue-50 border-blue-200"
+                  : "text-gray-400 border-transparent hover:text-gray-700 hover:bg-[gray-100]",
               ].join(" ")}
             >
               <Icons.Dot />
@@ -214,7 +214,7 @@ export default function Navbar() {
 
       {/* ── Mobile Dropdown ── */}
       {mobileOpen && (
-        <div className="md:hidden bg-[#0a0a0f] border-b border-white/[0.08] px-4 py-3 flex flex-col gap-1">
+        <div className="md:hidden bg-white border-b border-gray-200 px-4 py-3 flex flex-col gap-1">
           {NAV_LINKS.map((link) => {
             const Icon = NAV_ICONS[link.label];
             const active = isActive(link.href);
@@ -226,14 +226,14 @@ export default function Navbar() {
                 className={[
                   "flex items-center gap-2 px-3 py-2.5 rounded-[7px] text-[14px] font-['Syne',sans-serif] border transition-all",
                   active
-                    ? "text-white bg-orange-500/10 border-orange-500/20"
-                    : "text-white/50 border-transparent hover:text-white/80 hover:bg-white/[0.05]",
+                    ? "text-blue-600 bg-blue-50 border-blue-200"
+                    : "text-gray-500 border-transparent hover:text-gray-900 hover:bg-gray-50",
                 ].join(" ")}
               >
                 {Icon && <Icon />}
                 {link.label}
                 {link.badge && (
-                  <span className="ml-auto font-mono text-[9px] font-semibold bg-orange-500 text-white px-1.5 py-px rounded uppercase">
+                  <span className="ml-auto font-mono text-[9px] font-semibold bg-blue-600 text-white px-1.5 py-px rounded uppercase">
                     {link.badge}
                   </span>
                 )}
@@ -241,12 +241,12 @@ export default function Navbar() {
             );
           })}
 
-          <div className="border-t border-white/[0.06] mt-2 pt-3 flex items-center gap-2">
+          <div className="border-t border-gray-200 mt-2 pt-3 flex items-center gap-2">
             <a
               href="https://github.com/yourusername/fakeforge"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 flex items-center justify-center gap-2 text-[13px] font-['Syne',sans-serif] font-semibold text-white/60 px-3 py-2 rounded-[7px] border border-white/[0.12] bg-white/[0.04]"
+              className="flex-1 flex items-center justify-center gap-2 text-[13px] font-['Syne',sans-serif] font-semibold text-gray-600 px-3 py-2 rounded-[7px] border border-gray-200 bg-gray-50"
             >
               <Icons.GitHub />
               GitHub
@@ -254,7 +254,7 @@ export default function Navbar() {
             <Link
               href="/docs"
               onClick={() => setMobileOpen(false)}
-              className="flex-1 flex items-center justify-center gap-2 text-[13px] font-['Syne',sans-serif] font-semibold text-[#0a0a0f] px-3 py-2 rounded-[7px] bg-orange-500"
+              className="flex-1 flex items-center justify-center gap-2 text-[13px] font-['Syne',sans-serif] font-semibold text-white px-3 py-2 rounded-[7px] bg-blue-600"
             >
               <Icons.Terminal />
               Try API

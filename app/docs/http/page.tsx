@@ -23,7 +23,7 @@ const ENDPOINTS: Endpoint[] = [
       { name: "status", type: "number", required: true, description: "HTTP status code (100–599)" },
     ],
     code: `// Test 404 error handling
-const res = await fetch('https://fakeforge.vercel.app/http/404');
+const res = await fetch('https://fakeforge.vercel.app/api/http/404');
 console.log(res.status); // 404
 const data = await res.json();
 // { status: 404, message: "Not Found" }
