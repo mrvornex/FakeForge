@@ -63,16 +63,16 @@ export default function DocsSidebar() {
                   className={[
                     "flex items-center gap-2 px-2 py-[7px] rounded-[7px] border transition-all duration-150 mb-0.5",
                     active
-                      ? "bg-orange-500/10 border-orange-500/18"
+                      ? "bg-blue-500/10 border-blue-500/20"
                       : "border-transparent hover:bg-white/[0.04]",
                   ].join(" ")}
                 >
                   <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: item.color }} />
-                  <span className={`text-[12.5px] flex-1 ${active ? "text-orange-500" : "text-white/45"}`}>
+                  <span className={`text-[12.5px] flex-1 ${active ? "text-blue-400" : "text-white/45"}`}>
                     {item.label}
                   </span>
                   {item.count && (
-                    <span className={`font-mono text-[9px] ${active ? "text-orange-500/50" : "text-white/18"}`}>
+                    <span className={`font-mono text-[9px] ${active ? "text-blue-400/50" : "text-white/18"}`}>
                       {item.count}
                     </span>
                   )}

@@ -19,7 +19,7 @@ const METHOD_STYLE: Record<string, string> = {
   GET:    "text-green-400 bg-green-400/10 border-green-400/20",
   POST:   "text-blue-400 bg-blue-400/10 border-blue-400/20",
   PUT:    "text-yellow-400 bg-yellow-400/10 border-yellow-400/20",
-  PATCH:  "text-orange-400 bg-orange-400/10 border-orange-400/20",
+  PATCH:  "text-blue-400 bg-orange-400/10 border-orange-400/20",
   DELETE: "text-red-400 bg-red-400/10 border-red-400/20",
 };
 
@@ -34,7 +34,6 @@ export function CodeBlock({ code, lang = "javascript" }: { code: string; lang?: 
     });
   };
 
-  // Simple syntax highlight
   const highlighted = code
     .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
     .replace(/(\/\/.*$)/gm, '<span style="color:rgba(255,255,255,0.25)">$1</span>')
@@ -81,7 +80,7 @@ export function ParamsTable({ params, title = "Parameters" }: { params: Param[];
         <tbody>
           {params.map((p) => (
             <tr key={p.name} className="border-b border-white/[0.04] last:border-0">
-              <td className="font-mono text-[11px] text-orange-400 px-2 py-[6px]">{p.name}</td>
+              <td className="font-mono text-[11px] text-blue-400 px-2 py-[6px]">{p.name}</td>
               <td className="font-mono text-[11px] text-white/30 px-2 py-[6px]">{p.type}</td>
               <td className="px-2 py-[6px]">
                 <span className={`font-mono text-[9px] px-1.5 py-px rounded ${p.required ? "text-red-400 bg-red-400/10" : "text-white/20 bg-white/[0.04]"}`}>
@@ -105,8 +104,8 @@ export function EndpointCard({ endpoint }: { endpoint: Endpoint }) {
   return (
     <div
       className={[
-        "bg-[#0d0d14] border rounded-[10px] overflow-hidden mb-3 transition-colors duration-150",
-        open ? "border-orange-500/20" : "border-white/[0.07] hover:border-white/[0.12]",
+        "bg-[#0F1117] border rounded-[10px] overflow-hidden mb-3 transition-colors duration-150",
+        open ? "border-blue-500/20" : "border-white/[0.07] hover:border-white/[0.12]",
       ].join(" ")}
     >
       {/* Header */}
@@ -184,11 +183,11 @@ export function OnThisPage({ items }: { items: string[] }) {
   return (
     <aside className="w-[180px] flex-shrink-0 border-l border-white/[0.06] px-4 py-5 sticky top-[102px] h-[calc(100vh-102px)] overflow-y-auto hidden xl:block">
       <p className="font-mono text-[9.5px] text-white/20 tracking-[1.2px] uppercase mb-3">On this page</p>
-      {items.map((item, i) => (
+      {items.map((item) => (
         <a
           key={item}
           href={`#${item.toLowerCase().replace(/\s+/g, "-")}`}
-          className="block font-mono text-[11.5px] text-white/30 hover:text-white/70 py-1 pl-2.5 border-l-2 border-transparent hover:border-white/20 transition-all first:text-orange-500 first:border-orange-500"
+          className="block font-mono text-[11.5px] text-white/30 hover:text-white/70 py-1 pl-2.5 border-l-2 border-transparent hover:border-white/20 transition-all first:text-blue-500 first:border-blue-500"
         >
           {item}
         </a>

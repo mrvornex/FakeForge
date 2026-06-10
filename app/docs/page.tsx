@@ -68,7 +68,7 @@ export default function DocsIndexPage() {
         <div className="bg-[#0d0d14] border border-white/[0.07] rounded-[9px] p-4 mb-8 flex items-center gap-3">
           <span className="font-mono text-[11px] text-white/30">BASE URL</span>
           <div className="w-px h-4 bg-white/[0.08]" />
-          <span className="font-mono text-[13px] text-orange-400">https://fakeforge.vercel.app</span>
+          <span className="font-mono text-[13px] text-blue-400">https://fakeforge.vercel.app</span>
         </div>
 
         {/* Common params */}
@@ -96,7 +96,7 @@ export default function DocsIndexPage() {
               ["delay",  "number", "Simulate network latency in milliseconds (max 5000)"],
             ].map(([param, type, desc]) => (
               <tr key={param} className="border-b border-white/[0.04] last:border-0">
-                <td className="font-mono text-[11px] text-orange-400 px-2 py-[6px]">{param}</td>
+                <td className="font-mono text-[11px] text-blue-400 px-2 py-[6px]">{param}</td>
                 <td className="font-mono text-[11px] text-white/30 px-2 py-[6px]">{type}</td>
                 <td className="font-mono text-[11px] text-white/45 px-2 py-[6px]">{desc}</td>
               </tr>
@@ -123,11 +123,11 @@ export default function DocsIndexPage() {
           {RESOURCES.map((r) => (
             <Link
               key={r.name} href={r.href}
-              className="bg-[#0d0d14] border border-white/[0.07] hover:border-orange-500/20 rounded-[10px] p-4 transition-all group"
+              className="bg-[#0d0d14] border border-white/[0.07] hover:border-blue-500/20 rounded-[10px] p-4 transition-all group"
             >
               <div className="flex items-center gap-2 mb-1.5">
                 <span className="w-2 h-2 rounded-full" style={{ background: r.color }} />
-                <span className="font-['Syne',sans-serif] text-[14px] font-bold text-white group-hover:text-orange-400 transition-colors">
+                <span className="font-['Syne',sans-serif] text-[14px] font-bold text-white group-hover:text-blue-400 transition-colors">
                   {r.name}
                 </span>
                 <span className="font-mono text-[10px] text-white/20 ml-auto">{r.count}</span>
