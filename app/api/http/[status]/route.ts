@@ -1,6 +1,4 @@
 // app/api/http/[status]/route.ts
-// Returns any HTTP status code — useful for testing error handling
-
 import { NextRequest, NextResponse } from "next/server";
 import { CORS_HEADERS } from "@/lib/api";
 
@@ -14,8 +12,9 @@ const STATUS_MESSAGES: Record<number, string> = {
   503: "Service Unavailable", 504: "Gateway Timeout",
 };
 
-export async function GET(_req: NextRequest, { params }: { params: { status: string } }) {
-  const code = parseInt(params.status);
+export async function GET(_req: NextRequest, { params }: { params: Promise<{ status: string }> }) {
+  const { status } = await params;
+  const code = parseInt(status);
   if (isNaN(code) || code < 100 || code > 599) {
     return NextResponse.json({ message: "Invalid status code. Use a number between 100-599." }, { status: 400 });
   }
@@ -23,7 +22,6 @@ export async function GET(_req: NextRequest, { params }: { params: { status: str
   return NextResponse.json({ status: code, message }, { status: code, headers: CORS_HEADERS });
 }
 
-// Also handles POST/PUT/PATCH/DELETE
 export const POST = GET;
 export const PUT  = GET;
 export const PATCH = GET;

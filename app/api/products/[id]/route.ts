@@ -3,56 +3,40 @@ import { NextRequest, NextResponse } from "next/server";
 import { generateProduct, TOTALS } from "@/lib/faker";
 import { applyDelay, notFound, CORS_HEADERS } from "@/lib/api";
 
-// ─── GET /api/products/:id ────────────────────────────────────────────────────
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id: idStr } = await params;
   const delay = parseInt(req.nextUrl.searchParams.get("delay") ?? "0");
   await applyDelay(delay);
-
-  const id = parseInt(params.id);
+  const id = parseInt(idStr);
   if (isNaN(id) || id < 1 || id > TOTALS.products)
-    return notFound(`Product with id '${params.id}' not found`);
-
+    return notFound(`Product with id '${idStr}' not found`);
   return NextResponse.json(generateProduct(id), { headers: CORS_HEADERS });
 }
 
-// ─── PUT /api/products/:id ────────────────────────────────────────────────────
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
-  const id = parseInt(params.id);
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id: idStr } = await params;
+  const id = parseInt(idStr);
   if (isNaN(id) || id < 1 || id > TOTALS.products)
-    return notFound(`Product with id '${params.id}' not found`);
-
-  try {  
-    const body = await req.json();
-    const existing = generateProduct(id);
-    return NextResponse.json({ ...existing, ...body, id }, { headers: CORS_HEADERS });
-  } catch {
-    return NextResponse.json({ message: "Invalid JSON body" }, { status: 400 });
-  }
+    return notFound(`Product with id '${idStr}' not found`);
+  const body = await req.json().catch(() => ({}));
+  return NextResponse.json({ ...generateProduct(id), ...body, id }, { headers: CORS_HEADERS });
 }
 
-// ─── PATCH /api/products/:id ──────────────────────────────────────────────────
-export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
-  const id = parseInt(params.id);
+export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id: idStr } = await params;
+  const id = parseInt(idStr);
   if (isNaN(id) || id < 1 || id > TOTALS.products)
-    return notFound(`Product with id '${params.id}' not found`);
-
-  try {
-    const body = await req.json();
-    const existing = generateProduct(id);
-    return NextResponse.json({ ...existing, ...body, id }, { headers: CORS_HEADERS });
-  } catch {
-    return NextResponse.json({ message: "Invalid JSON body" }, { status: 400 });
-  }
+    return notFound(`Product with id '${idStr}' not found`);
+  const body = await req.json().catch(() => ({}));
+  return NextResponse.json({ ...generateProduct(id), ...body, id }, { headers: CORS_HEADERS });
 }
 
-// ─── DELETE /api/products/:id ─────────────────────────────────────────────────
-export async function DELETE(_req: NextRequest, { params }: { params: { id: string } }) {
-  const id = parseInt(params.id);
+export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id: idStr } = await params;
+  const id = parseInt(idStr);
   if (isNaN(id) || id < 1 || id > TOTALS.products)
-    return notFound(`Product with id '${params.id}' not found`);
-
-  const product = generateProduct(id);
-  return NextResponse.json({ ...product, isDeleted: true, deletedOn: new Date().toISOString() }, { headers: CORS_HEADERS });
+    return notFound(`Product with id '${idStr}' not found`);
+  return NextResponse.json({ ...generateProduct(id), isDeleted: true, deletedOn: new Date().toISOString() }, { headers: CORS_HEADERS });
 }
 
 export function OPTIONS() {
