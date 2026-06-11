@@ -4,7 +4,7 @@ import type { Endpoint } from "@/components/docs/DocsComponents";
 
 const ENDPOINTS: Endpoint[] = [
   {
-    method: "GET", path: "/comments", description: "Get all comments",
+    method: "GET", path: "/api/comments", description: "Get all comments",
     params: [
       { name: "limit",  type: "number", required: false, description: "Items per page (default: 30)" },
       { name: "skip",   type: "number", required: false, description: "Items to skip" },
@@ -15,20 +15,21 @@ const data = await res.json();
 // { comments: [...], total: 340, skip: 0, limit: 10 }`,
   },
   {
-    method: "GET", path: "/comments/:id", description: "Get single comment",
+    method: "GET", path: "/api/comments/:id", description: "Get single comment",
     params: [{ name: "id", type: "number", required: true, description: "Comment ID (1–340)" }],
     code: `const res = await fetch('https://fakeforge.vercel.app/api/comments/1');
 const comment = await res.json();
 // { id: 1, body: "...", postId: 3, likes: 12, user: { id, username, fullName } }`,
   },
   {
-    method: "GET", path: "/posts/:id/comments", description: "Get comments by post",
+    method: "GET", path: "/api/posts/:id/comments", description: "Get comments by post",
     params: [{ name: "id", type: "number", required: true, description: "Post ID" }],
     code: `const res = await fetch('https://fakeforge.vercel.app/api/posts/1/comments');
-const data = await res.json();`,
+const data = await res.json();
+// { comments: [...], total: 5, skip: 0, limit: 5 }`,
   },
   {
-    method: "POST", path: "/comments", description: "Add a new comment",
+    method: "POST", path: "/api/comments", description: "Add a new comment",
     params: [],
     code: `const res = await fetch('https://fakeforge.vercel.app/api/comments', {
   method: 'POST',
@@ -38,7 +39,7 @@ const data = await res.json();`,
 const data = await res.json();`,
   },
   {
-    method: "PATCH", path: "/comments/:id", description: "Update a comment",
+    method: "PATCH", path: "/api/comments/:id", description: "Update a comment",
     params: [{ name: "id", type: "number", required: true, description: "Comment ID" }],
     code: `const res = await fetch('https://fakeforge.vercel.app/api/comments/1', {
   method: 'PATCH',
@@ -48,7 +49,7 @@ const data = await res.json();`,
 const data = await res.json();`,
   },
   {
-    method: "DELETE", path: "/comments/:id", description: "Delete a comment",
+    method: "DELETE", path: "/api/comments/:id", description: "Delete a comment",
     params: [{ name: "id", type: "number", required: true, description: "Comment ID" }],
     code: `const res = await fetch('https://fakeforge.vercel.app/api/comments/1', { method: 'DELETE' });
 const data = await res.json();`,

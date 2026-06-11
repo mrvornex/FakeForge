@@ -4,7 +4,7 @@ import type { Endpoint } from "@/components/docs/DocsComponents";
 
 const ENDPOINTS: Endpoint[] = [
   {
-    method: "GET", path: "/recipes", description: "Get all recipes",
+    method: "GET", path: "/api/recipes", description: "Get all recipes",
     params: [
       { name: "limit",  type: "number", required: false, description: "Items per page (default: 30)" },
       { name: "skip",   type: "number", required: false, description: "Items to skip" },
@@ -17,26 +17,33 @@ const data = await res.json();
 // { recipes: [...], total: 50, skip: 0, limit: 10 }`,
   },
   {
-    method: "GET", path: "/recipes/:id", description: "Get single recipe",
+    method: "GET", path: "/api/recipes/:id", description: "Get single recipe",
     params: [{ name: "id", type: "number", required: true, description: "Recipe ID (1–50)" }],
     code: `const res = await fetch('https://fakeforge.vercel.app/api/recipes/1');
 const recipe = await res.json();
-// { id: 1, name: "...", ingredients: [...], instructions: [...], cuisine: "Italian", ... }`,
+// { id: 1, name: "...", ingredients: [...], cuisine: "Italian", ... }`,
   },
   {
-    method: "GET", path: "/recipes/search", description: "Search recipes",
-    params: [{ name: "q", type: "string", required: true, description: "Search by name or cuisine" }],
+    method: "GET", path: "/api/recipes/search", description: "Search recipes by name or cuisine",
+    params: [
+      { name: "q",     type: "string", required: true,  description: "Search query" },
+      { name: "limit", type: "number", required: false, description: "Items per page" },
+    ],
     code: `const res = await fetch('https://fakeforge.vercel.app/api/recipes/search?q=pasta');
-const data = await res.json();`,
+const data = await res.json();
+// { recipes: [...], total: 3, skip: 0, limit: 30 }`,
   },
   {
-    method: "GET", path: "/recipes/meal-type/:type", description: "Get recipes by meal type",
-    params: [{ name: "type", type: "string", required: true, description: "Meal type: breakfast, lunch, dinner, snack, dessert" }],
+    method: "GET", path: "/api/recipes/meal-type/:type", description: "Get recipes by meal type",
+    params: [
+      { name: "type", type: "string", required: true, description: "breakfast | lunch | dinner | snack | dessert" },
+    ],
     code: `const res = await fetch('https://fakeforge.vercel.app/api/recipes/meal-type/dinner');
-const data = await res.json();`,
+const data = await res.json();
+// { recipes: [...], total: 12, skip: 0, limit: 30 }`,
   },
   {
-    method: "POST", path: "/recipes", description: "Add a new recipe",
+    method: "POST", path: "/api/recipes", description: "Add a new recipe",
     params: [],
     code: `const res = await fetch('https://fakeforge.vercel.app/api/recipes', {
   method: 'POST',
@@ -46,7 +53,7 @@ const data = await res.json();`,
 const data = await res.json();`,
   },
   {
-    method: "PATCH", path: "/recipes/:id", description: "Update a recipe",
+    method: "PATCH", path: "/api/recipes/:id", description: "Update a recipe",
     params: [{ name: "id", type: "number", required: true, description: "Recipe ID" }],
     code: `const res = await fetch('https://fakeforge.vercel.app/api/recipes/1', {
   method: 'PATCH',
@@ -56,7 +63,7 @@ const data = await res.json();`,
 const data = await res.json();`,
   },
   {
-    method: "DELETE", path: "/recipes/:id", description: "Delete a recipe",
+    method: "DELETE", path: "/api/recipes/:id", description: "Delete a recipe",
     params: [{ name: "id", type: "number", required: true, description: "Recipe ID" }],
     code: `const res = await fetch('https://fakeforge.vercel.app/api/recipes/1', { method: 'DELETE' });
 const data = await res.json();`,
@@ -68,7 +75,7 @@ export default function RecipesDocsPage() {
     <div className="flex">
       <div className="flex-1 px-8 py-7 max-w-[720px]">
         <DocsPageHeader breadcrumb="Recipes" title="Recipes"
-          description="50 fake recipes with ingredients, step-by-step instructions, cuisine type, meal type, prep time, cook time, calories, and ratings." />
+          description="50 fake recipes with ingredients, instructions, cuisine type, meal type, prep/cook time, calories, and ratings. Supports search, meal-type filter, and full CRUD." />
         <SectionTitle title="Endpoints" />
         {ENDPOINTS.map((ep) => <EndpointCard key={`${ep.method}-${ep.path}`} endpoint={ep} />)}
       </div>

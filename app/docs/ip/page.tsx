@@ -4,7 +4,7 @@ import type { Endpoint } from "@/components/docs/DocsComponents";
 
 const ENDPOINTS: Endpoint[] = [
   {
-    method: "GET", path: "/ip", description: "Get client IP address",
+    method: "GET", path: "/api/ip", description: "Get client IP address",
     params: [],
     code: `const res = await fetch('https://fakeforge.vercel.app/api/ip');
 const data = await res.json();

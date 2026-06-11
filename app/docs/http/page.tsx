@@ -18,7 +18,7 @@ const STATUS_CODES = [
 
 const ENDPOINTS: Endpoint[] = [
   {
-    method: "GET", path: "/http/:status", description: "Returns any HTTP status",
+    method: "GET", path: "/api/http/:status", description: "Returns any HTTP status code",
     params: [
       { name: "status", type: "number", required: true, description: "HTTP status code (100–599)" },
     ],
@@ -29,8 +29,8 @@ const data = await res.json();
 // { status: 404, message: "Not Found" }
 
 // Works with all methods
-await fetch('/http/201', { method: 'POST' });
-await fetch('/http/500', { method: 'DELETE' });`,
+await fetch('https://fakeforge.vercel.app/api/http/201', { method: 'POST' });
+await fetch('https://fakeforge.vercel.app/api/http/500', { method: 'DELETE' });`,
   },
 ];
 
@@ -39,7 +39,7 @@ export default function HttpDocsPage() {
     <div className="flex">
       <div className="flex-1 px-8 py-7 max-w-[720px]">
         <DocsPageHeader breadcrumb="Mock HTTP" title="Mock HTTP"
-          description="Return any HTTP status code to test how your application handles different server responses. Works with all HTTP methods." />
+          description="Return any HTTP status code to test how your application handles different server responses. Works with GET, POST, PUT, PATCH and DELETE." />
 
         <SectionTitle title="Endpoint" />
         {ENDPOINTS.map((ep) => <EndpointCard key={`${ep.method}-${ep.path}`} endpoint={ep} />)}
