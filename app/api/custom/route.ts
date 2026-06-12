@@ -1,6 +1,6 @@
 // app/api/custom/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { store } from "@/lib/store";
+import { kv } from "@vercel/kv";
 import { CORS_HEADERS } from "@/lib/api";
 
 function generateId(): string {
@@ -9,7 +9,7 @@ function generateId(): string {
 
 export async function GET() {
   return NextResponse.json({
-    message: "POST your JSON to this endpoint to get a unique URL.",
+    message: "POST your JSON to get a unique URL.",
     example: {
       method: "POST",
       url: "https://fakeforge.vercel.app/api/custom",
@@ -29,20 +29,22 @@ export async function POST(req: NextRequest) {
 
     const size = JSON.stringify(data).length;
     if (size > 5 * 1024 * 1024) {
-      return NextResponse.json({ message: "JSON too large. Max size is 5 MB." }, { status: 413 });
+      return NextResponse.json({ message: "JSON too large. Max 5 MB." }, { status: 413 });
     }
 
     const id = generateId();
-    store.set(id, { data, createdAt: new Date().toISOString() });
+    // Store in KV with 7 day expiry
+    await kv.set(`custom:${id}`, JSON.stringify(data), { ex: 60 * 60 * 24 * 7 });
 
     return NextResponse.json({
       id,
       url: `https://fakeforge.vercel.app/api/custom/${id}`,
       size,
+      expiresIn: "7 days",
       createdAt: new Date().toISOString(),
     }, { status: 201, headers: CORS_HEADERS });
   } catch {
-    return NextResponse.json({ message: "Invalid request body" }, { status: 400 });
+    return NextResponse.json({ message: "Invalid request" }, { status: 400 });
   }
 }
 
