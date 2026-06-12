@@ -17,26 +17,26 @@ function GitHubIcon() {
 
 export default function HeroSection() {
   return (
-    <section className="bg-[#0f1117] px-6 pt-16 pb-14 flex flex-col items-center text-center">
+    <section className="px-6 pt-16 pb-14 flex flex-col items-center text-center">
 
       {/* Badge */}
       <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 rounded-full px-3.5 py-1.5 mb-6">
-        <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
-        <span className="font-mono text-[11px] text-blue-400 tracking-wide">
+        <span className="w-1.5 h-1.5 rounded-full bg-[#155DFC] animate-pulse" />
+        <span className="font-mono text-[11px] text-[#155DFC] tracking-wide">
           Free Fake REST API — No auth required
         </span>
       </div>
 
       {/* Title */}
-      <h1 className="text-[48px] font-semibold text-slate-100 leading-[1.1] tracking-[-1.5px] mb-4 max-w-xl">
+      <h1 className="text-[48px] font-semibold text-black leading-[1.1] tracking-[-1.5px] mb-4 max-w-xl">
         Fake data,{" "}
         <span className="text-blue-500">real speed.</span>
       </h1>
 
       {/* Subtitle */}
-      <p className="text-[16px] text-slate-500 leading-relaxed max-w-[440px] mb-8">
+      <p className="text-[16px] text-black leading-relaxed max-w-[440px] mb-8">
         FakeForge gives you instant{" "}
-        <span className="text-slate-400">fake JSON APIs</span> for products, users,
+        <span className="text-black">fake JSON APIs</span> for products, users,
         posts & more — prototype without a backend.
       </p>
 
@@ -46,7 +46,7 @@ export default function HeroSection() {
           className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white text-[14px] font-medium px-5 py-2.5 rounded-[7px] transition-colors">
           Explore Docs
         </Link>
-        <a href="https://github.com/yourusername/fakeforge" target="_blank" rel="noopener noreferrer"
+        <a href="https://github.com/mrvornex/fakeforge" target="_blank" rel="noopener noreferrer"
           className="flex items-center gap-2 text-[14px] text-slate-400 hover:text-slate-200 border border-white/[0.1] hover:border-white/[0.2] px-5 py-2.5 rounded-[7px] transition-all">
           <GitHubIcon /> GitHub
         </a>
@@ -87,7 +87,7 @@ export default function HeroSection() {
         {STATS.map((s, i) => (
           <div key={s.label} className="flex items-center">
             <div className="flex flex-col items-center px-7">
-              <span className="text-[20px] font-semibold text-slate-100">
+              <span className="text-[20px] font-semibold text-black">
                 {s.num}<span className="text-blue-500">{s.suffix}</span>
               </span>
               <span className="font-mono text-[10px] text-slate-600 uppercase tracking-wide mt-0.5">

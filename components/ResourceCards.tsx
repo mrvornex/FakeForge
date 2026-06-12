@@ -23,11 +23,11 @@ const RESOURCES: Resource[] = [
 
 export default function ResourceCards() {
     return (
-        <section className="bg-[#0F1117] px-8 py-14">
+        <section className=" px-8 py-14">
             <div className="max-w-[860px] mx-auto">
                 <div className="mb-8">
-                    <h2 className="text-[36px] font-bold text-white mb-1.5">Top <span className="text-blue-500">Resources:</span></h2>
-                    <p className="text-[14px] text-white/40">
+                    <h2 className="text-[36px] font-bold text-black mb-1.5">Top <span className="text-blue-500">Resources:</span></h2>
+                    <p className="text-[14px] text-black">
                         Access fake data, fully organized and ready to use, all in one place.
                     </p>
                 </div>

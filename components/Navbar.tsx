@@ -19,10 +19,10 @@ interface SubLink {
 // ─── Data ─────────────────────────────────────────────────────────────────────
 const NAV_LINKS: NavLink[] = [
   { label: "Home",            href: "/"               },
-  { label: "Docs",            href: "/docs"           },
   { label: "Custom Response", href: "/custom-response"},
-  { label: "Dynamic Image",   href: "/docs/image"     },
-  { label: "Mock HTTP",       href: "/docs/http", badge: "New" },
+  { label: "Docs",            href: "/docs"           },
+  // { label: "Dynamic Image",   href: "/docs/image"     },
+  // { label: "Mock HTTP",       href: "/docs/http", badge: "New" },
 ];
 
 const SUB_LINKS: SubLink[] = [
@@ -113,14 +113,14 @@ export default function Navbar() {
   return (
     <header className="w-full sticky top-0 z-50">
       {/* ── Main Nav ── */}
-      <nav className="bg-[#0F1117] border-b border-blue-100 px-6 h-[60px] flex items-center justify-between relative shadow-sm">
+      <nav className="bg-[#FFFFFF] border-b border-blue-100 px-6 h-[60px] flex items-center justify-around relative shadow-sm">
 
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5 flex-shrink-0 group">
           <div className="w-8 h-8 rounded-[7px] bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center font-mono text-[13px] font-semibold text-white tracking-tighter select-none">
             FF
           </div>
-          <span className="font-['Syne',sans-serif] text-[17px] font-bold text-white tracking-tight">
+          <span className="font-['Syne',sans-serif] text-[17px] font-bold text-black tracking-tight">
             Fake<span className="text-blue-600">Forge</span>
           </span>
         </Link>
@@ -138,7 +138,7 @@ export default function Navbar() {
                   "flex items-center gap-1.5 px-3.5 py-1.5 rounded-[7px] text-[13.5px] font-['Syne',sans-serif] transition-all duration-150 border whitespace-nowrap",
                   active
                     ? "text-blue-600 bg-blue-50 border-blue-200"
-                    : "text-gray-500 border-transparent hover:text-gray-900 hover:bg-gray-100 hover:border-gray-200",
+                    : "text-black border-transparent hover:text-gray-900 hover:bg-gray-100 hover:border-gray-200",
                 ].join(" ")}
               >
                 {Icon && <Icon />}
@@ -155,9 +155,9 @@ export default function Navbar() {
 
         {/* Right Side */}
         <div className="hidden md:flex items-center gap-2.5 flex-shrink-0">
-          <span className="font-mono text-[11px] text-gray-400 bg-gray-100 border border-gray-200 px-2 py-1 rounded-[5px] tracking-wide">
+          {/* <span className="font-mono text-[11px] text-gray-400 bg-gray-100 border border-gray-200 px-2 py-1 rounded-[5px] tracking-wide">
             v2.0.0
-          </span>
+          </span> */}
 
           <div className="w-px h-[22px] bg-gray-200" />
 
@@ -191,7 +191,7 @@ export default function Navbar() {
       </nav>
 
       {/* ── Sub Nav (API endpoints) ── */}
-      <div className="bg-[#0F1117] border-b border-gray-200 px-6 h-[42px] flex items-center gap-0.5 overflow-x-auto scrollbar-none">
+      <div className="bg-[#ffffff] border-b border-gray-200 px-6 h-[42px] flex justify-center items-center gap-0.5 overflow-x-auto scrollbar-none">
         {SUB_LINKS.map((link) => {
           const active = pathname === link.href;
           return (
@@ -202,7 +202,7 @@ export default function Navbar() {
                 "flex items-center gap-1.5 px-3 py-[5px] rounded-[5px] font-mono text-[11.5px] whitespace-nowrap border transition-all duration-150",
                 active
                   ? "text-blue-600 bg-blue-50 border-blue-200"
-                  : "text-gray-400 border-transparent hover:text-gray-700 hover:bg-[gray-100]",
+                  : "text-black border-transparent hover:text-gray-700 hover:bg-[gray-100]",
               ].join(" ")}
             >
               <Icons.Dot />

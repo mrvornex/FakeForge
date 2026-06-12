@@ -1,12 +1,21 @@
-// app/api/custom/route.ts  — POST: store JSON, return unique URL
+// app/api/custom/route.ts
 import { NextRequest, NextResponse } from "next/server";
+import { store } from "@/lib/store";
 import { CORS_HEADERS } from "@/lib/api";
-
-// In-memory store (resets on cold start — for production use Redis/DB)
-const store = new Map<string, unknown>();
 
 function generateId(): string {
   return Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+}
+
+export async function GET() {
+  return NextResponse.json({
+    message: "POST your JSON to this endpoint to get a unique URL.",
+    example: {
+      method: "POST",
+      url: "https://fakeforge.vercel.app/api/custom",
+      body: { name: "Ali", role: "admin" },
+    },
+  }, { headers: CORS_HEADERS });
 }
 
 export async function POST(req: NextRequest) {
@@ -23,8 +32,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ message: "JSON too large. Max size is 5 MB." }, { status: 413 });
     }
 
-    const id  = generateId();
-    store.set(id, data);
+    const id = generateId();
+    store.set(id, { data, createdAt: new Date().toISOString() });
 
     return NextResponse.json({
       id,
@@ -33,7 +42,7 @@ export async function POST(req: NextRequest) {
       createdAt: new Date().toISOString(),
     }, { status: 201, headers: CORS_HEADERS });
   } catch {
-    return NextResponse.json({ message: "Invalid request" }, { status: 400 });
+    return NextResponse.json({ message: "Invalid request body" }, { status: 400 });
   }
 }
 
