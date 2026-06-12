@@ -48,11 +48,11 @@ export default function DocsSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-[220px] flex-shrink-0 border-r border-white/[0.06] sticky top-[102px] h-[calc(100vh-102px)] overflow-y-auto">
+    <aside className="w-[220px] flex-shrink-0 border-r border-black sticky top-[102px] h-[calc(100vh-102px)] overflow-y-auto">
       <nav className="py-5">
         {SECTIONS.map((section) => (
           <div key={section.title} className="px-3 mb-1">
-            <p className="font-mono text-[9.5px] text-white/20 tracking-[1.2px] uppercase px-2 py-2.5">
+            <p className="font-mono text-[9.5px] text-black tracking-[1.2px] uppercase px-2 py-2.5">
               {section.title}
             </p>
             {section.items.map((item) => {
@@ -64,15 +64,15 @@ export default function DocsSidebar() {
                     "flex items-center gap-2 px-2 py-[7px] rounded-[7px] border transition-all duration-150 mb-0.5",
                     active
                       ? "bg-blue-500/10 border-blue-500/20"
-                      : "border-transparent hover:bg-white/[0.04]",
+                      : "border-transparent hover:bg-black/[0.04]",
                   ].join(" ")}
                 >
                   <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: item.color }} />
-                  <span className={`text-[12.5px] flex-1 ${active ? "text-blue-400" : "text-white/45"}`}>
+                  <span className={`text-[12.5px] flex-1 ${active ? "text-blue-400" : "text-black"}`}>
                     {item.label}
                   </span>
                   {item.count && (
-                    <span className={`font-mono text-[9px] ${active ? "text-blue-400/50" : "text-white/18"}`}>
+                    <span className={`font-mono text-[9px] ${active ? "text-blue-400/50" : "text-black"}`}>
                       {item.count}
                     </span>
                   )}

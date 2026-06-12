@@ -83,7 +83,7 @@ export default function HeroSection() {
       </div>
 
       {/* Stats */}
-      <div className="flex items-center mt-8">
+      {/* <div className="flex items-center mt-8">
         {STATS.map((s, i) => (
           <div key={s.label} className="flex items-center">
             <div className="flex flex-col items-center px-7">
@@ -97,7 +97,7 @@ export default function HeroSection() {
             {i < STATS.length - 1 && <div className="w-px h-8 bg-white/[0.06]" />}
           </div>
         ))}
-      </div>
+      </div> */}
     </section>
   );
 }

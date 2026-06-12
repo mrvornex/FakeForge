@@ -131,7 +131,7 @@ function FeatureCard({ feature }: { feature: Feature }) {
   return (
     <div
       className={[
-        "group relative bg-[#0d0d14] border border-white/[0.07] rounded-[14px] p-6",
+        "group relative border border-black rounded-[14px] p-6",
         "hover:border-blue-500/20 hover:-translate-y-0.5 transition-all duration-200 overflow-hidden",
         feature.wide ? "col-span-2" : "",
       ].join(" ")}
@@ -147,10 +147,10 @@ function FeatureCard({ feature }: { feature: Feature }) {
       </div>
 
       {/* Text */}
-      <h3 className="relative font-['Syne',sans-serif] text-[15px] font-bold text-white mb-2 tracking-[-0.3px]">
+      <h3 className="relative font-['Syne',sans-serif] text-[15px] font-bold text-black mb-2 tracking-[-0.3px]">
         {feature.title}
       </h3>
-      <p className="relative font-['Syne',sans-serif] text-[13px] text-white/40 leading-relaxed">
+      <p className="relative font-['Syne',sans-serif] text-[13px] text-black leading-relaxed">
         {feature.desc}
       </p>
 
@@ -186,7 +186,7 @@ function FeatureCard({ feature }: { feature: Feature }) {
 // ─── Features Section ─────────────────────────────────────────────────────────
 export default function FeaturesSection() {
   return (
-    <section className="bg-[#0F1117] px-6 py-20">
+    <section className="px-6 py-20">
 
       {/* Label */}
       <div className="flex items-center justify-center gap-3 mb-4">
@@ -198,7 +198,7 @@ export default function FeaturesSection() {
       </div>
 
       {/* Title */}
-      <h2 className="font-['Syne',sans-serif] text-[40px] font-extrabold text-white text-center tracking-[-1.5px] leading-[1.1] mb-3">
+      <h2 className="font-['Syne',sans-serif] text-[40px] font-extrabold text-black text-center tracking-[-1.5px] leading-[1.1] mb-3">
         Everything you need to{" "}
         <span className="text-blue-500">prototype fast</span>
       </h2>
@@ -214,7 +214,7 @@ export default function FeaturesSection() {
       </div>
 
       {/* Divider */}
-      <div className="w-full max-w-[900px] mx-auto mt-12 h-px bg-white/[0.05]" />
+      <div className="w-full max-w-[900px] mx-auto mt-12 h-px bg-black" />
     </section>
   );
 }

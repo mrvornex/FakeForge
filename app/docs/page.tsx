@@ -30,28 +30,28 @@ export default function DocsIndexPage() {
       <div className="flex-1 px-8 py-7 max-w-[720px]">
 
         {/* Breadcrumb */}
-        <div className="flex items-center gap-1.5 font-mono text-[10.5px] text-white/25 mb-5">
+        <div className="flex items-center gap-1.5 font-mono text-[10.5px] text-black mb-5">
           <span>Docs</span>
-          <span className="text-white/15">/</span>
+          <span className="text-black">/</span>
           <span>Introduction</span>
         </div>
 
         {/* Title */}
-        <h1 className="font-['Syne',sans-serif] text-[28px] font-extrabold text-white tracking-[-1px] mb-1.5">
+        <h1 className="font-['Syne',sans-serif] text-[28px] font-extrabold text-black tracking-[-1px] mb-1.5">
           Introduction
         </h1>
-        <p className="font-['Syne',sans-serif] text-[13px] text-white/40 leading-[1.65] max-w-[520px] mb-8">
+        <p className="font-['Syne',sans-serif] text-[13px] text-black leading-[1.65] max-w-[520px] mb-8">
           FakeForge is a free fake REST API for developers. No registration, no API key, no rate limits. Just fetch and build.
         </p>
 
         {/* Quick start */}
         <div className="flex items-center gap-3 mb-3.5">
-          <span className="text-[13px] font-bold text-white/50 tracking-[0.5px] uppercase">Quick Start</span>
-          <div className="flex-1 h-px bg-white/[0.06]" />
+          <span className="text-[13px] font-bold text-black tracking-[0.5px] uppercase">Quick Start</span>
+          <div className="flex-1 h-px bg-black" />
         </div>
 
-        <div className="bg-[#080810] border border-white/[0.06] rounded-[8px] overflow-hidden mb-8">
-          <div className="flex items-center px-3 py-2 border-b border-white/[0.05]">
+        <div className="bg-[#080810] border border-black rounded-[8px] overflow-hidden mb-8">
+          <div className="flex items-center px-3 py-2 border-b border-black">
             <span className="font-mono text-[9.5px] text-white/25 tracking-[0.8px] uppercase">javascript</span>
           </div>
           <pre className="px-4 py-3.5 font-mono text-[11.5px] leading-[1.75] text-white/65 overflow-x-auto">
@@ -61,27 +61,27 @@ export default function DocsIndexPage() {
 
         {/* Base URL */}
         <div className="flex items-center gap-3 mb-3.5">
-          <span className="text-[13px] font-bold text-white/50 tracking-[0.5px] uppercase">Base URL</span>
-          <div className="flex-1 h-px bg-white/[0.06]" />
+          <span className="text-[13px] font-bold text-black tracking-[0.5px] uppercase">Base URL</span>
+          <div className="flex-1 h-px bg-black" />
         </div>
 
         <div className="bg-[#0d0d14] border border-white/[0.07] rounded-[9px] p-4 mb-8 flex items-center gap-3">
-          <span className="font-mono text-[11px] text-white/30">BASE URL</span>
-          <div className="w-px h-4 bg-white/[0.08]" />
+          <span className="font-mono text-[11px] text-white">BASE URL</span>
+          <div className="w-px h-4 bg-black" />
           <span className="font-mono text-[13px] text-blue-400">https://fakeforge.vercel.app</span>
         </div>
 
         {/* Common params */}
         <div className="flex items-center gap-3 mb-3.5">
-          <span className="text-[13px] font-bold text-white/50 tracking-[0.5px] uppercase">Common Params</span>
-          <div className="flex-1 h-px bg-white/[0.06]" />
+          <span className="text-[13px] font-bold text-black tracking-[0.5px] uppercase">Common Params</span>
+          <div className="flex-1 h-px bg-black" />
         </div>
 
         <table className="w-full border-collapse mb-4">
           <thead>
             <tr>
               {["Param", "Type", "Description"].map((h) => (
-                <th key={h} className="font-mono text-[9.5px] text-white/20 text-left px-2 pb-2 tracking-[0.8px] uppercase font-normal">{h}</th>
+                <th key={h} className="font-mono text-[9.5px] text-black text-left px-2 pb-2 tracking-[0.8px] uppercase font-normal">{h}</th>
               ))}
             </tr>
           </thead>
@@ -95,27 +95,27 @@ export default function DocsIndexPage() {
               ["q",      "string", "Full-text search query"],
               ["delay",  "number", "Simulate network latency in milliseconds (max 5000)"],
             ].map(([param, type, desc]) => (
-              <tr key={param} className="border-b border-white/[0.04] last:border-0">
+              <tr key={param} className="border-b border-black last:border-0">
                 <td className="font-mono text-[11px] text-blue-400 px-2 py-[6px]">{param}</td>
-                <td className="font-mono text-[11px] text-white/30 px-2 py-[6px]">{type}</td>
-                <td className="font-mono text-[11px] text-white/45 px-2 py-[6px]">{desc}</td>
+                <td className="font-mono text-[11px] text-black px-2 py-[6px]">{type}</td>
+                <td className="font-mono text-[11px] text-black px-2 py-[6px]">{desc}</td>
               </tr>
             ))}
           </tbody>
         </table>
 
-        <div className="bg-[#080810] border border-white/[0.06] rounded-[8px] overflow-hidden mb-8">
+        <div className="bg-[#080810] border border-black rounded-[8px] overflow-hidden mb-8">
           <div className="flex items-center px-3 py-2 border-b border-white/[0.05]">
-            <span className="font-mono text-[9.5px] text-white/25 tracking-[0.8px] uppercase">javascript</span>
+            <span className="font-mono text-[9.5px] text-white tracking-[0.8px] uppercase">javascript</span>
           </div>
-          <pre className="px-4 py-3.5 font-mono text-[11.5px] leading-[1.75] text-white/65 overflow-x-auto">
+          <pre className="px-4 py-3.5 font-mono text-[11.5px] leading-[1.75] text-white overflow-x-auto">
             {CODE_PARAMS}
           </pre>
         </div>
 
         {/* All resources */}
         <div className="flex items-center gap-3 mb-3.5">
-          <span className="text-[13px] font-bold text-white/50 tracking-[0.5px] uppercase">All Resources</span>
+          <span className="text-[13px] font-bold text-black tracking-[0.5px] uppercase">All Resources</span>
           <div className="flex-1 h-px bg-white/[0.06]" />
         </div>
 
@@ -123,16 +123,16 @@ export default function DocsIndexPage() {
           {RESOURCES.map((r) => (
             <Link
               key={r.name} href={r.href}
-              className="bg-[#0d0d14] border border-white/[0.07] hover:border-blue-500/20 rounded-[10px] p-4 transition-all group"
+              className="bg-[#0d0d14] border border-black hover:border-blue-500/20 rounded-[10px] p-4 transition-all group"
             >
               <div className="flex items-center gap-2 mb-1.5">
                 <span className="w-2 h-2 rounded-full" style={{ background: r.color }} />
                 <span className="font-['Syne',sans-serif] text-[14px] font-bold text-white group-hover:text-blue-400 transition-colors">
                   {r.name}
                 </span>
-                <span className="font-mono text-[10px] text-white/20 ml-auto">{r.count}</span>
+                <span className="font-mono text-[10px] text-white ml-auto">{r.count}</span>
               </div>
-              <p className="font-mono text-[11px] text-white/35">{r.desc}</p>
+              <p className="font-mono text-[11px] text-white">{r.desc}</p>
             </Link>
           ))}
         </div>

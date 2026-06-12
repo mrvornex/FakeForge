@@ -23,16 +23,16 @@ interface Params {
 // ─── Data ─────────────────────────────────────────────────────────────────────
 const RESOURCES: Resource[] = [
   { name: "products", count: "194", color: "#f97316", hints: ["/products?limit=5", "/products/1", "/products/search?q=phone", "/products/categories"] },
-  { name: "users", count: "208", color: "#60a5fa", hints: ["/users?limit=5", "/users/1", "/users/search?q=john", "/users/1/posts"] },
-  { name: "posts", count: "251", color: "#4ade80", hints: ["/posts?limit=5", "/posts/1", "/posts/search?q=love", "/posts/1/comments"] },
-  { name: "comments", count: "340", color: "#e879f9", hints: ["/comments?limit=5", "/comments/1", "/posts/1/comments"] },
-  { name: "carts", count: "20", color: "#facc15", hints: ["/carts?limit=5", "/carts/1", "/users/1/carts"] },
-  { name: "todos", count: "254", color: "#34d399", hints: ["/todos?limit=5", "/todos/1", "/todos/random", "/users/1/todos"] },
-  { name: "quotes", count: "1467", color: "#a78bfa", hints: ["/quotes?limit=5", "/quotes/1", "/quotes/random"] },
-  { name: "recipes", count: "50", color: "#fb7185", hints: ["/recipes?limit=5", "/recipes/1", "/recipes/search?q=pasta", "/recipes/meal-type/dinner"] },
-  { name: "image", count: "∞", color: "#38bdf8", hints: ["/image/200x150", "/image/300x200?text=Hello", "/image/400x300?bgColor=orange"] },
+  { name: "users", count: "208", color: "#3b82f6", hints: ["/users?limit=5", "/users/1", "/users/search?q=john", "/users/1/posts"] },
+  { name: "posts", count: "251", color: "#22c55e", hints: ["/posts?limit=5", "/posts/1", "/posts/search?q=love", "/posts/1/comments"] },
+  { name: "comments", count: "340", color: "#a855f7", hints: ["/comments?limit=5", "/comments/1", "/posts/1/comments"] },
+  { name: "carts", count: "20", color: "#eab308", hints: ["/carts?limit=5", "/carts/1", "/users/1/carts"] },
+  { name: "todos", count: "254", color: "#10b981", hints: ["/todos?limit=5", "/todos/1", "/todos/random", "/users/1/todos"] },
+  { name: "quotes", count: "1467", color: "#8b5cf6", hints: ["/quotes?limit=5", "/quotes/1", "/quotes/random"] },
+  { name: "recipes", count: "50", color: "#f43f5e", hints: ["/recipes?limit=5", "/recipes/1", "/recipes/search?q=pasta", "/recipes/meal-type/dinner"] },
+  { name: "image", count: "∞", color: "#0ea5e9", hints: ["/image/200x150", "/image/300x200?text=Hello", "/image/400x300?bgColor=orange"] },
   { name: "auth", count: "—", color: "#f97316", hints: ["/auth/login", "/auth/me", "/auth/refresh"] },
-  { name: "http", count: "—", color: "#f87171", hints: ["/http/200", "/http/404", "/http/500"] },
+  { name: "http", count: "—", color: "#ef4444", hints: ["/http/200", "/http/404", "/http/500"] },
   { name: "ip", count: "—", color: "#94a3b8", hints: ["/ip"] },
 ];
 
@@ -59,12 +59,12 @@ function syntaxHighlight(json: string): string {
       /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
       (m) => {
         if (/^"/.test(m)) {
-          if (/:$/.test(m)) return `<span style="color:#3b82f6">${m}</span>`;
-          return `<span style="color:#4ade80">${m}</span>`;
+          if (/:$/.test(m)) return `<span style="color:#1d4ed8">${m}</span>`;   // keys → blue
+          return `<span style="color:#15803d">${m}</span>`;                       // strings → green
         }
-        if (/true|false/.test(m)) return `<span style="color:#60a5fa">${m}</span>`;
-        if (/null/.test(m)) return `<span style="color:rgba(255,255,255,0.25)">${m}</span>`;
-        return `<span style="color:#e879f9">${m}</span>`;
+        if (/true|false/.test(m)) return `<span style="color:#0369a1">${m}</span>`;  // booleans → dark blue
+        if (/null/.test(m)) return `<span style="color:#94a3b8">${m}</span>`;         // null → gray
+        return `<span style="color:#7c3aed">${m}</span>`;                             // numbers → purple
       }
     );
 }
@@ -78,15 +78,17 @@ function Sidebar({
 }) {
   const filtered = resources.filter((r) => r.name.includes(search.toLowerCase()));
   return (
-    <div className="border-r border-white/[0.06] flex flex-col w-[260px] flex-shrink-0">
-      <div className="p-4 border-b border-white/[0.06]">
-        <p className="font-mono text-[10px] text-white/25 tracking-[1px] uppercase mb-2.5">Resources</p>
-        <div className="flex items-center gap-2 bg-white/[0.04] border border-white/[0.08] rounded-[7px] px-2.5 py-[7px]">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>
+    <div className="border-r border-blue-200 flex flex-col w-[220px] flex-shrink-0 bg-[#f0f4ff]">
+      <div className="p-4 border-b border-blue-200">
+        <p className="font-mono text-[10px] text-[#1a1a2e] tracking-[1.5px] uppercase mb-2.5 font-semibold">Resources</p>
+        <div className="flex items-center gap-2 bg-white border border-blue-200 rounded-[7px] px-2.5 py-[7px]">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#9aaad0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
           <input
             type="text" value={search} onChange={(e) => onSearch(e.target.value)}
             placeholder="Search resource..."
-            className="bg-transparent border-none outline-none font-mono text-[11px] text-white/60 placeholder-white/20 w-full"
+            className="bg-transparent border-none outline-none font-mono text-[11px] text-[#1a1a2e] placeholder-[#9aaad0] w-full"
           />
         </div>
       </div>
@@ -97,13 +99,13 @@ function Sidebar({
             className={[
               "flex items-center gap-2.5 px-3 py-2.5 rounded-[8px] cursor-pointer transition-all border mb-0.5",
               r.name === active
-                ? "bg-blue-500/10 border-blue-500/20"
-                : "border-transparent hover:bg-white/[0.04]",
+                ? "bg-blue-500/10 border-blue-500/25"
+                : "border-transparent hover:bg-blue-500/5",
             ].join(" ")}
           >
             <span className="w-[7px] h-[7px] rounded-full flex-shrink-0" style={{ background: r.color }} />
-            <span className={`font-mono text-[12px] flex-1 ${r.name === active ? "text-blue-500" : "text-white/50"}`}>{r.name}</span>
-            <span className={`font-mono text-[10px] px-1.5 py-px rounded-full ${r.name === active ? "text-blue-500/60 bg-blue-500/[0.08]" : "text-white/20 bg-white/[0.05]"}`}>{r.count}</span>
+            <span className={`font-mono text-[12px] flex-1 ${r.name === active ? "text-blue-600" : "text-[#4a5580]"}`}>{r.name}</span>
+            <span className={`font-mono text-[10px] px-1.5 py-px rounded-full ${r.name === active ? "text-blue-500 bg-blue-500/10" : "text-[#7a8ab0] bg-black/[0.05]"}`}>{r.count}</span>
           </div>
         ))}
       </div>
@@ -159,7 +161,11 @@ export default function ApiExplorer() {
       try { pretty = JSON.stringify(JSON.parse(text), null, 2); } catch { }
       const preview = pretty.split("\n").slice(0, 50).join("\n");
       setJson(preview);
-      setRespHdrs({ "content-type": res.headers.get("content-type") ?? "", status: `${res.status} ${res.statusText}`, "cache-control": res.headers.get("cache-control") ?? "no-cache" });
+      setRespHdrs({
+        "content-type": res.headers.get("content-type") ?? "",
+        status: `${res.status} ${res.statusText}`,
+        "cache-control": res.headers.get("cache-control") ?? "no-cache"
+      });
       setStatus(res.ok ? "ok" : "error");
       setCode(res.status);
       setElapsed(ms);
@@ -188,72 +194,75 @@ export default function ApiExplorer() {
     navigator.clipboard.writeText(json).then(() => { setCopied(true); setTimeout(() => setCopied(false), 1500); });
   };
 
-  const statusColor = status === "ok" ? "text-green-400 bg-green-400/[0.08] border-green-400/20"
-    : status === "error" ? "text-red-400 bg-red-400/[0.08] border-red-400/20"
-      : "text-white/20 bg-white/[0.03] border-white/[0.06]";
+  // ── Status badge colors (light bg friendly) ──
+  const statusColor = status === "ok"
+    ? "text-green-700 bg-green-500/10 border-green-500/30"
+    : status === "error"
+      ? "text-red-600 bg-red-500/10 border-red-500/30"
+      : "text-[#7a8ab0] bg-black/[0.04] border-blue-200";
 
-  const methodColor = method === "GET" ? "text-green-400 bg-green-400/10 border-green-400/20"
-    : method === "POST" ? "text-blue-400 bg-blue-400/10 border-blue-400/20"
-      : method === "PUT" ? "text-yellow-400 bg-yellow-400/10 border-yellow-400/20"
-        : method === "PATCH" ? "text-blue-400 bg-blue-400/10 border-blue-400/20"
-          : "text-red-400 bg-red-400/10 border-red-400/20";
+  // ── Method selector colors ──
+  const methodColor = method === "GET" ? "text-green-700 bg-green-500/10 border-green-500/30"
+    : method === "POST" ? "text-blue-700 bg-blue-500/10 border-blue-500/30"
+      : method === "PUT" ? "text-amber-700 bg-amber-500/10 border-amber-500/30"
+        : method === "PATCH" ? "text-blue-700 bg-blue-500/10 border-blue-500/30"
+          : "text-red-600 bg-red-500/10 border-red-500/30";
 
   return (
-    <section className="bg-[#0F1117] px-6 py-20">
+    <section className="px-6 py-20 bg-[#f0f4ff]">
       {/* Label */}
       <div className="flex items-center justify-center gap-3 mb-4">
         <div className="w-8 h-px bg-blue-500/40" />
         <span className="font-mono text-[11px] text-blue-500 tracking-[1.5px] uppercase">Live API Explorer</span>
         <div className="w-8 h-px bg-blue-500/40" />
       </div>
-      <h2 className="font-['Syne',sans-serif] text-[40px] font-extrabold text-white text-center tracking-[-1.5px] leading-[1.1] mb-3">
-        Try it <span className="text-blue-500">right now</span>
+      <h2 className="font-['Syne',sans-serif] text-[40px] font-extrabold text-[#0f172a] text-center tracking-[-1.5px] leading-[1.1] mb-3">
+        Try it <span className="text-blue-600">right now</span>
       </h2>
-      <p className="font-['Syne',sans-serif] text-[14px] text-white/40 text-center mb-12 leading-relaxed">
+      <p className="font-['Syne',sans-serif] text-[14px] text-[#4a5580] text-center mb-12 leading-relaxed">
         Pick a resource, set your params, hit Send — real JSON response instantly. No setup needed.
       </p>
 
       {/* Explorer Container */}
-      <div className="flex max-w-[1000px] mx-auto bg-[#0F1117] border border-white/[0.07] rounded-[16px] overflow-hidden min-h-[560px]">
+      <div className="flex max-w-[1000px] mx-auto border border-blue-200 rounded-[16px] overflow-hidden min-h-[560px] bg-[#f8faff]">
         <Sidebar resources={RESOURCES} active={resource.name} search={search} onSearch={setSearch} onSelect={handleSelect} />
 
         {/* Main Panel */}
         <div className="flex-1 flex flex-col min-w-0">
 
           {/* Request Bar */}
-          <div className="p-4 border-b border-white/[0.06] flex flex-col gap-2.5">
+          <div className="p-4 border-b border-blue-200 flex flex-col gap-2.5">
             <div className="flex items-center gap-2">
               <select
                 value={method} onChange={(e) => setMethod(e.target.value as Method)}
                 className={`font-mono text-[11px] font-semibold border rounded-[6px] px-3 py-[7px] outline-none cursor-pointer bg-transparent ${methodColor}`}
               >
                 {(["GET", "POST", "PUT", "PATCH", "DELETE"] as Method[]).map((m) => (
-                  <option key={m} value={m} style={{ background: "#0d0d14", color: "#fff" }}>{m}</option>
+                  <option key={m} value={m} style={{ background: "#f0f4ff", color: "#1a1a2e" }}>{m}</option>
                 ))}
               </select>
-              <span className="flex-1 font-mono text-[11.5px] text-white/60 bg-white/[0.04] border border-white/[0.08] rounded-[7px] px-3 py-[7px] truncate">
+              <span className="flex-1 font-mono text-[11.5px] text-[#1a1a2e] bg-white border border-blue-200 rounded-[7px] px-3 py-[7px] truncate">
                 {url}
               </span>
               <button
                 onClick={sendRequest} disabled={status === "loading"}
-                className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 disabled:opacity-50 text-white font-['Syne',sans-serif] text-[13px] font-bold px-4 py-[7px] rounded-[7px] transition-all whitespace-nowrap"
+                className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-['Syne',sans-serif] text-[13px] font-bold px-4 py-[7px] rounded-[7px] transition-all whitespace-nowrap"
               >
-                {status === "loading" ? <span className="inline-block w-3.5 h-3.5 border-2 border-white/20 border-t-white rounded-full animate-spin" /> : null}
+                {status === "loading" ? <span className="inline-block w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : null}
                 {status === "loading" ? "Sending" : "Send ↗"}
               </button>
-              <button onClick={() => { setJson(""); setStatus("idle"); setCode(null); setElapsed(null); }}
-                className="font-['Syne',sans-serif] text-[12px] text-white/40 hover:text-white bg-white/[0.04] border border-white/[0.08] hover:border-white/20 px-3 py-[7px] rounded-[7px] transition-all">
+              <button
+                onClick={() => { setJson(""); setStatus("idle"); setCode(null); setElapsed(null); }}
+                className="font-['Syne',sans-serif] text-[12px] text-[#1a1a2e] hover:text-blue-600 bg-white border border-blue-200 hover:border-blue-400 px-3 py-[7px] rounded-[7px] transition-all"
+              >
                 Clear
               </button>
             </div>
-            <p className="font-mono text-[10px] text-white/20 leading-relaxed">
+            <p className="font-mono text-[10px] text-[#7a8ab0] leading-relaxed">
               Try:&nbsp;
               {resource.hints.map((h, i) => (
                 <span key={h}>
-                  <span className="text-blue-500/50 cursor-pointer hover:text-blue-500 transition-colors" onClick={() => {
-                    const field = document.querySelector<HTMLSpanElement>('.url-display');
-                    if (field) field.textContent = `${BASE}${h}`;
-                  }}>{h}</span>
+                  <span className="text-blue-500 cursor-pointer hover:text-blue-700 transition-colors">{h}</span>
                   {i < resource.hints.length - 1 ? " · " : ""}
                 </span>
               ))}
@@ -261,12 +270,12 @@ export default function ApiExplorer() {
           </div>
 
           {/* Tabs: Params / Headers / Body / Auth */}
-          <div className="flex border-b border-white/[0.06]">
+          <div className="flex border-b border-blue-200">
             {(["params", "headers", "body", "auth"] as TabId[]).map((t) => (
               <button key={t} onClick={() => setTab(t)}
                 className={[
                   "font-mono text-[11px] px-4 py-2.5 border-b-2 transition-all capitalize",
-                  tab === t ? "text-blue-500 border-blue-500" : "text-white/30 border-transparent hover:text-white/60",
+                  tab === t ? "text-blue-600 border-blue-600" : "text-[#7a8ab0] border-transparent hover:text-[#1a1a2e]",
                   t === "body" && !["POST", "PUT", "PATCH"].includes(method) ? "opacity-40" : "",
                 ].join(" ")}
               >{t}</button>
@@ -280,7 +289,7 @@ export default function ApiExplorer() {
                 <thead>
                   <tr>
                     {["Key", "Value", "Description"].map((h) => (
-                      <th key={h} className="font-mono text-[10px] text-white/20 uppercase tracking-[0.8px] text-left pb-2 font-normal"
+                      <th key={h} className="font-mono text-[10px] text-[#7a8ab0] uppercase tracking-[0.8px] text-left pb-2 font-normal"
                         style={{ width: h === "Key" ? "22%" : h === "Value" ? "30%" : "auto" }}>{h}</th>
                     ))}
                   </tr>
@@ -294,22 +303,22 @@ export default function ApiExplorer() {
                     { key: "delay", val: params.delay, type: "number", placeholder: "ms", desc: "Simulate latency (ms)" },
                   ].map(({ key, val, type, placeholder, desc }) => (
                     <tr key={key}>
-                      <td className="font-mono text-[11px] text-white/40 py-1 pr-3 whitespace-nowrap">{key}</td>
+                      <td className="font-mono text-[11px] text-[#4a5580] py-1 pr-3 whitespace-nowrap">{key}</td>
                       <td className="py-1 pr-3">
                         {key === "sortBy" ? (
                           <select value={params.order} onChange={setParam("order")}
-                            className="w-full bg-white/[0.04] border border-white/[0.08] focus:border-blue-500/30 rounded-[5px] px-2.5 py-[5px] font-mono text-[11px] text-white/70 outline-none">
-                            <option value="" style={{ background: "#0d0d14" }}>--</option>
-                            <option value="asc" style={{ background: "#0d0d14" }}>asc</option>
-                            <option value="desc" style={{ background: "#0d0d14" }}>desc</option>
+                            className="w-full bg-white border border-blue-200 focus:border-blue-400 rounded-[5px] px-2.5 py-[5px] font-mono text-[11px] text-[#1a1a2e] outline-none">
+                            <option value="" style={{ background: "#f0f4ff" }}>--</option>
+                            <option value="asc" style={{ background: "#f0f4ff" }}>asc</option>
+                            <option value="desc" style={{ background: "#f0f4ff" }}>desc</option>
                           </select>
                         ) : (
                           <input type={type} value={val} placeholder={placeholder}
                             onChange={setParam(key as keyof Params)}
-                            className="w-full bg-white/[0.04] border border-white/[0.08] focus:border-blue-500/30 rounded-[5px] px-2.5 py-[5px] font-mono text-[11px] text-white/70 outline-none transition-colors" />
+                            className="w-full bg-white border border-blue-200 focus:border-blue-400 rounded-[5px] px-2.5 py-[5px] font-mono text-[11px] text-[#1a1a2e] outline-none transition-colors placeholder-[#9aaad0]" />
                         )}
                       </td>
-                      <td className="font-mono text-[10px] text-white/20 py-1 whitespace-nowrap">{desc}</td>
+                      <td className="font-mono text-[10px] text-[#9aaad0] py-1 whitespace-nowrap">{desc}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -318,18 +327,18 @@ export default function ApiExplorer() {
             {tab === "headers" && (
               <table className="w-full">
                 <thead><tr>
-                  <th className="font-mono text-[10px] text-white/20 uppercase tracking-[0.8px] text-left pb-2 font-normal w-[30%]">Key</th>
-                  <th className="font-mono text-[10px] text-white/20 uppercase tracking-[0.8px] text-left pb-2 font-normal">Value</th>
+                  <th className="font-mono text-[10px] text-[#7a8ab0] uppercase tracking-[0.8px] text-left pb-2 font-normal w-[30%]">Key</th>
+                  <th className="font-mono text-[10px] text-[#7a8ab0] uppercase tracking-[0.8px] text-left pb-2 font-normal">Value</th>
                 </tr></thead>
                 <tbody>
                   <tr>
-                    <td className="font-mono text-[11px] text-white/40 pr-3 py-1">Content-Type</td>
-                    <td><input readOnly value="application/json" className="w-full bg-white/[0.02] border border-white/[0.05] rounded-[5px] px-2.5 py-[5px] font-mono text-[11px] text-white/30 outline-none opacity-50" /></td>
+                    <td className="font-mono text-[11px] text-[#4a5580] pr-3 py-1">Content-Type</td>
+                    <td><input readOnly value="application/json" className="w-full bg-blue-50 border border-blue-100 rounded-[5px] px-2.5 py-[5px] font-mono text-[11px] text-[#7a8ab0] outline-none opacity-60" /></td>
                   </tr>
                   <tr>
-                    <td className="font-mono text-[11px] text-white/40 pr-3 py-1">Authorization</td>
+                    <td className="font-mono text-[11px] text-[#4a5580] pr-3 py-1">Authorization</td>
                     <td><input value={authHeader} onChange={(e) => setAuthHeader(e.target.value)} placeholder="Bearer <token>"
-                      className="w-full bg-white/[0.04] border border-white/[0.08] focus:border-blue-500/30 rounded-[5px] px-2.5 py-[5px] font-mono text-[11px] text-white/70 outline-none transition-colors" /></td>
+                      className="w-full bg-white border border-blue-200 focus:border-blue-400 rounded-[5px] px-2.5 py-[5px] font-mono text-[11px] text-[#1a1a2e] placeholder-[#9aaad0] outline-none transition-colors" /></td>
                   </tr>
                 </tbody>
               </table>
@@ -337,31 +346,31 @@ export default function ApiExplorer() {
             {tab === "body" && (
               <textarea value={bodyText} onChange={(e) => setBodyText(e.target.value)}
                 placeholder='{ "title": "New Product", "price": 99 }'
-                className="w-full bg-white/[0.03] border border-white/[0.08] focus:border-blue-500/30 rounded-[7px] px-3 py-2.5 font-mono text-[11.5px] text-white/70 outline-none resize-none h-[100px] leading-relaxed transition-colors" />
+                className="w-full bg-white border border-blue-200 focus:border-blue-400 rounded-[7px] px-3 py-2.5 font-mono text-[11.5px] text-[#1a1a2e] placeholder-[#9aaad0] outline-none resize-none h-[100px] leading-relaxed transition-colors" />
             )}
             {tab === "auth" && (
               <div className="flex flex-col gap-3">
                 <table className="w-full">
                   <thead><tr>
-                    <th className="font-mono text-[10px] text-white/20 uppercase tracking-[0.8px] text-left pb-2 font-normal w-[22%]">Field</th>
-                    <th className="font-mono text-[10px] text-white/20 uppercase tracking-[0.8px] text-left pb-2 font-normal">Value</th>
+                    <th className="font-mono text-[10px] text-[#7a8ab0] uppercase tracking-[0.8px] text-left pb-2 font-normal w-[22%]">Field</th>
+                    <th className="font-mono text-[10px] text-[#7a8ab0] uppercase tracking-[0.8px] text-left pb-2 font-normal">Value</th>
                   </tr></thead>
                   <tbody>
                     <tr>
-                      <td className="font-mono text-[11px] text-white/40 pr-3 py-1">Username</td>
+                      <td className="font-mono text-[11px] text-[#4a5580] pr-3 py-1">Username</td>
                       <td><input value={authUser} onChange={(e) => setAuthUser(e.target.value)} placeholder="emilys"
-                        className="w-full bg-white/[0.04] border border-white/[0.08] focus:border-blue-500/30 rounded-[5px] px-2.5 py-[5px] font-mono text-[11px] text-white/70 outline-none transition-colors" /></td>
+                        className="w-full bg-white border border-blue-200 focus:border-blue-400 rounded-[5px] px-2.5 py-[5px] font-mono text-[11px] text-[#1a1a2e] placeholder-[#9aaad0] outline-none transition-colors" /></td>
                     </tr>
                     <tr>
-                      <td className="font-mono text-[11px] text-white/40 pr-3 py-1">Password</td>
+                      <td className="font-mono text-[11px] text-[#4a5580] pr-3 py-1">Password</td>
                       <td><input type="password" value={authPass} onChange={(e) => setAuthPass(e.target.value)} placeholder="emilyspass"
-                        className="w-full bg-white/[0.04] border border-white/[0.08] focus:border-blue-500/30 rounded-[5px] px-2.5 py-[5px] font-mono text-[11px] text-white/70 outline-none transition-colors" /></td>
+                        className="w-full bg-white border border-blue-200 focus:border-blue-400 rounded-[5px] px-2.5 py-[5px] font-mono text-[11px] text-[#1a1a2e] outline-none transition-colors" /></td>
                     </tr>
                     <tr>
                       <td />
                       <td className="pt-2">
                         <button onClick={doLogin}
-                          className="bg-blue-500/15 border border-blue-500/30 text-blue-500 font-['Syne',sans-serif] text-[12px] px-4 py-[6px] rounded-[6px] cursor-pointer hover:bg-blue-500/25 transition-all">
+                          className="bg-blue-500/10 border border-blue-500/30 text-blue-600 font-['Syne',sans-serif] text-[12px] px-4 py-[6px] rounded-[6px] cursor-pointer hover:bg-blue-500/20 transition-all">
                           Login → Get Token
                         </button>
                       </td>
@@ -369,7 +378,7 @@ export default function ApiExplorer() {
                   </tbody>
                 </table>
                 {tokenMsg && (
-                  <div className={`font-mono text-[10px] px-3 py-2 rounded-[6px] border ${tokenMsg.startsWith("✓") ? "text-green-400 bg-green-400/[0.08] border-green-400/15" : "text-red-400 bg-red-400/[0.08] border-red-400/15"}`}>
+                  <div className={`font-mono text-[10px] px-3 py-2 rounded-[6px] border ${tokenMsg.startsWith("✓") ? "text-green-700 bg-green-500/10 border-green-500/20" : "text-red-600 bg-red-500/10 border-red-500/20"}`}>
                     {tokenMsg}
                   </div>
                 )}
@@ -378,55 +387,55 @@ export default function ApiExplorer() {
           </div>
 
           {/* Response Panel */}
-          <div className="flex-1 flex flex-col border-t border-white/[0.06]">
-            <div className="flex items-center gap-2 px-4 py-2.5 border-b border-white/[0.06] bg-black/20">
+          <div className="flex-1 flex flex-col border-t border-blue-200">
+            <div className="flex items-center gap-2 px-4 py-2.5 border-b border-blue-200 bg-[#edf1fb]">
               <span className="w-[9px] h-[9px] rounded-full bg-[#ff5f57]" />
               <span className="w-[9px] h-[9px] rounded-full bg-[#febc2e]" />
               <span className="w-[9px] h-[9px] rounded-full bg-[#28c840]" />
               <div className="flex items-center gap-2 ml-auto">
-                {elapsed !== null && <span className="font-mono text-[10px] text-white/20">{elapsed}ms</span>}
-                {size && <span className="font-mono text-[10px] text-white/20">{size}</span>}
+                {elapsed !== null && <span className="font-mono text-[10px] text-[#7a8ab0]">{elapsed}ms</span>}
+                {size && <span className="font-mono text-[10px] text-[#7a8ab0]">{size}</span>}
                 <span className={`font-mono text-[10px] px-2.5 py-px rounded-full border ${statusColor}`}>
                   {status === "idle" ? "waiting" : status === "loading" ? "loading" : status === "ok" ? `${code} OK` : `${code} Error`}
                 </span>
                 {json && (
-                  <button onClick={copyJson} className="font-mono text-[10px] text-white/35 hover:text-white bg-white/[0.04] border border-white/[0.08] hover:border-white/20 rounded-[5px] px-2.5 py-1 transition-all">
+                  <button onClick={copyJson} className="font-mono text-[10px] text-[#7a8ab0] hover:text-[#1a1a2e] bg-white border border-blue-200 hover:border-blue-400 rounded-[5px] px-2.5 py-1 transition-all">
                     {copied ? "copied!" : "copy JSON"}
                   </button>
                 )}
               </div>
             </div>
-            <div className="flex border-b border-white/[0.05]">
+            <div className="flex border-b border-blue-100">
               {(["response", "headers"] as ResTab[]).map((t) => (
                 <button key={t} onClick={() => setResTab(t)}
-                  className={`font-mono text-[10.5px] px-4 py-2 border-b-2 transition-all capitalize ${resTab === t ? "text-blue-500 border-blue-500" : "text-white/30 border-transparent hover:text-white/60"}`}>
+                  className={`font-mono text-[10.5px] px-4 py-2 border-b-2 transition-all capitalize ${resTab === t ? "text-blue-600 border-blue-600" : "text-[#7a8ab0] border-transparent hover:text-[#1a1a2e]"}`}>
                   {t}
                 </button>
               ))}
             </div>
-            <div className="flex-1 p-4 overflow-y-auto max-h-[200px] min-h-[140px]">
+            <div className="flex-1 p-4 overflow-y-auto max-h-[200px] min-h-[140px] bg-white">
               {status === "idle" && (
                 <div className="text-center py-8">
-                  <p className="font-mono text-[11px] text-white/20">Select a resource and hit Send to see the response</p>
+                  <p className="font-mono text-[11px] text-[#9aaad0]">Select a resource and hit Send to see the response</p>
                 </div>
               )}
               {status === "loading" && (
                 <div className="text-center py-8 flex items-center justify-center gap-2">
-                  <span className="inline-block w-3.5 h-3.5 border-2 border-blue-500/20 border-t-blue-500 rounded-full animate-spin" />
-                  <span className="font-mono text-[11px] text-white/30">Fetching {resource.name}...</span>
+                  <span className="inline-block w-3.5 h-3.5 border-2 border-blue-200 border-t-blue-500 rounded-full animate-spin" />
+                  <span className="font-mono text-[11px] text-[#7a8ab0]">Fetching {resource.name}...</span>
                 </div>
               )}
               {(status === "ok" || status === "error") && resTab === "response" && json && (
-                <pre className="font-mono text-[11.5px] leading-[1.8] whitespace-pre-wrap break-all"
+                <pre className="font-mono text-[11.5px] leading-[1.8] whitespace-pre-wrap break-all text-[#1a1a2e]"
                   dangerouslySetInnerHTML={{ __html: syntaxHighlight(json) }} />
               )}
               {(status === "ok" || status === "error") && resTab === "headers" && (
                 <table className="w-full">
                   <tbody>
                     {Object.entries(respHdrs).map(([k, v]) => (
-                      <tr key={k} className="border-b border-white/[0.04]">
-                        <td className="font-mono text-[11px] text-white/35 py-1 pr-4 w-[40%]">{k}</td>
-                        <td className="font-mono text-[11px] text-white/60 py-1">{v}</td>
+                      <tr key={k} className="border-b border-blue-50">
+                        <td className="font-mono text-[11px] text-[#4a5580] py-1 pr-4 w-[40%]">{k}</td>
+                        <td className="font-mono text-[11px] text-[#1a1a2e] py-1">{v}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -438,7 +447,7 @@ export default function ApiExplorer() {
       </div>
 
       {/* Divider */}
-      <div className="w-full max-w-[1000px] mx-auto mt-14 h-px bg-white/[0.05]" />
+      <div className="w-full max-w-[1000px] mx-auto mt-14 h-px bg-blue-200/50" />
     </section>
   );
 }
